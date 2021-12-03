@@ -1,5 +1,7 @@
 <script context="module">
     import store from "../js/store";
+    import { t } from "../js/i18n";
+
     store.dispatch("checkAuthentication");
 </script>
 
@@ -9,6 +11,6 @@
 
 <Page name="home">
     <Block strong>
-        <p>Home</p>
+        <p>{$t("homepage.title")}</p>
     </Block>
 </Page>

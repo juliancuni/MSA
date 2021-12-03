@@ -7,7 +7,6 @@ const appRoutes = [
     {
         path: '/dashboard',
         async({ resolve }) {
-            console.log(isAuthenticated.value)
             if (isAuthenticated.value) {
                 resolve({ component: DashboardPage })
             } else {

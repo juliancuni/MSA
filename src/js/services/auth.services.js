@@ -49,3 +49,13 @@ export const getLoggedInUser = async () => {
         f7.dialog.alert(error.message, "Unauthorized!");
     }
 }
+
+export const getLocale = async () => {
+    try {
+        const locale = await appwriteSdk.locale.get();
+        return locale;
+    } catch (error) {
+        f7.dialog.alert(error.message, "Locale Failed!");
+        return null;
+    }
+}
