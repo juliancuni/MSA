@@ -8,13 +8,22 @@
         Button,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
+    import { login, getLoggedInUser } from "../../js/services/auth.services";
+    import store from "../../js/store";
     export let f7router;
 
-    let email = "";
-    let password = "";
+    let email = "juliancuni@gmail.com";
+    let password = "36638833";
 
-    function signIn() {
-    }
+    const loginUser = async () => {
+        const session = await login(email, password);
+        if (session) {
+            f7.loginScreen.close();
+            const user = await getLoggedInUser();
+            store.dispatch("loginUser", user);
+            f7router.navigate("/");
+        }
+    };
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
@@ -36,7 +45,7 @@
         />
     </List>
     <List>
-        <Button raised onClick={signIn}>Sign In</Button>
+        <Button raised onClick={loginUser}>Login</Button>
     </List>
     <Footer />
 </Page>
