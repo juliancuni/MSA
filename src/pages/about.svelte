@@ -2,8 +2,8 @@
     import { Page, Block } from "framework7-svelte";
 </script>
 
-<Page name="home">
+<Page name="about">
     <Block strong>
-        <p>Home</p>
+        <p>About</p>
     </Block>
 </Page>

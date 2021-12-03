@@ -1,42 +1,30 @@
-<App { ...f7params } >
-
-  <!-- Your main view, should have "view-main" class -->
-  <View main class="safe-areas" url="/" />
-
-</App>
 <script>
-  import { onMount } from 'svelte';
+  import { f7, f7ready, App, View } from "framework7-svelte";
 
-  import {
-    f7,
-    f7ready,
-    App,
-    View,
-  } from 'framework7-svelte';
+  import Nav from "./ui/navbar.svelte";
 
+  import routes from "../js/routes";
+  import store from "../js/store";
 
-  import routes from '../js/routes';
-  import store from '../js/store';
-
-
-  // Framework7 Parameters
   let f7params = {
-    name: 'AMMS', // App name
-    theme: 'auto', // Automatic theme detection
-
-
-
-    // App store
+    name: "AMMS",
+    theme: "auto",
     store: store,
-    // App routes
     routes: routes,
   };
 
-  onMount(() => {
-    f7ready(() => {
-
-
-      // Call F7 APIs here
-    });
-  })
 </script>
+
+<App {...f7params}>
+  <!-- Your main view, should have "view-main" class -->
+  <View
+    main
+    class="safe-areas view-main"
+    url="/"
+    browserHistory={true}
+    browserHistorySeparator=""
+  >
+  <!-- TopNap -->
+    <Nav />
+  </View>
+</App>
