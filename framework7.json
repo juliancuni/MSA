@@ -1,0 +1,19 @@
+{
+  "cwd": "/media/exthdd/home/julian/Projects/JS/Learn_Svelte/svelte/MSA",
+  "type": [
+    "web"
+  ],
+  "name": "AMMS",
+  "framework": "svelte",
+  "template": "blank",
+  "cssPreProcessor": "scss",
+  "bundler": "vite",
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}
