@@ -5,9 +5,8 @@ export const login = async (email, password) => {
     try {
         const session = await appwriteSdk.account.createSession(email, password);
         localStorage.setItem('sessionId', session.$id);
-        return session
+        return session;
     } catch (error) {
-        // f7.dialog.alert(error.message, "Login Failed");
         f7.notification.create({
             title: 'microservices.al',
             // titleRightText: 'now',
@@ -23,8 +22,8 @@ export const login = async (email, password) => {
 export const logout = async (sessionId) => {
     try {
         await appwriteSdk.account.deleteSession(sessionId);
-        localStorage.removeItem('sessionId')
-        localStorage.removeItem('user')
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('user');
         return true;
     } catch (error) {
         f7.dialog.alert(error.message, "Logout Failed");

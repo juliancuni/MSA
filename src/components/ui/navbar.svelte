@@ -19,12 +19,13 @@
         (authenticated) => (isAuthenticated = authenticated)
     );
     const logoutUser = async () => {
+        f7.progressbar.show();
         const sessionId = localStorage.getItem("sessionId");
         const loggedOut = await logout(sessionId);
-
         if (loggedOut) {
             store.dispatch("logoutUser");
         }
+        f7.progressbar.hide();
     };
     const setLang = () => {
         f7.smartSelect.get(".smart-select").close();

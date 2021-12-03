@@ -16,6 +16,7 @@
     let password = "36638833";
 
     const loginUser = async () => {
+        f7.progressbar.show();
         const session = await login(email, password);
         if (session) {
             f7.loginScreen.close();
@@ -23,11 +24,12 @@
             store.dispatch("loginUser", user);
             f7router.navigate("/");
         }
+        f7.progressbar.hide();
     };
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
-    <LoginScreenTitle>{f7.name}</LoginScreenTitle>
+    <LoginScreenTitle>{f7.name} Login</LoginScreenTitle>
     <List form>
         <ListInput
             label="Email"
