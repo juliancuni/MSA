@@ -6,13 +6,14 @@
         List,
         ListInput,
         Button,
+        ListButton,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
     import { login, getLoggedInUser } from "../../js/services/auth.services";
     import store from "../../js/store";
     export let f7router;
 
-    let email = "juliancuni@gmail.com";
+    let email = "julian.cuni@microservices.al";
     let password = "36638833";
 
     const loginUser = async () => {
@@ -21,8 +22,10 @@
         if (session) {
             f7.loginScreen.close();
             const user = await getLoggedInUser();
-            store.dispatch("loginUser", user);
-            f7router.navigate("/");
+            if (user) {
+                store.dispatch("loginUser", user);
+                f7router.navigate("/");
+            }
         }
         f7.progressbar.hide();
     };
@@ -48,6 +51,7 @@
     </List>
     <List>
         <Button raised onClick={loginUser}>Login</Button>
+        <ListButton color="green" href="/auth/register">Register</ListButton>
     </List>
     <Footer />
 </Page>

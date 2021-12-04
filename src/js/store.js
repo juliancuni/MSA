@@ -16,10 +16,10 @@ const store = createStore({
     },
     actions: {
         checkAuthentication({ state }) {
-            if (localStorage.getItem("sessionId")) {
+            if (localStorage.getItem("sessionId") && localStorage.getItem("user")) {
                 state.isAuthenticated = true;
-            } else if (localStorage.getItem("user")) {
-                state.loggedInUser = JSON.parse(localStorage.getItem("user"));
+            // } else if (localStorage.getItem("user")) {
+            //     state.loggedInUser = JSON.parse(localStorage.getItem("user"));
             } else {
                 state.isAuthenticated = false;
                 state.loggedInUser = null;

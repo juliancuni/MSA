@@ -1,3 +1,11 @@
+<script context="module">
+    const user = localStorage.getItem("user");
+    const sessionId = localStorage.getItem("sessionId");
+    if (user && sessionId) {
+        store.dispatch("loginUser", JSON.parse(user));
+    }
+</script>
+
 <script>
     import { App, View } from "framework7-svelte";
 
