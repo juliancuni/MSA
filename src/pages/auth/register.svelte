@@ -33,7 +33,7 @@
             const session = await login(email, password);
             if (session) {
                 await createVerification(email);
-                await logout(session.$id);
+                // await logout(session.$id);
             }
             f7router.navigate("/auth/login");
         }

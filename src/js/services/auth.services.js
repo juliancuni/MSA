@@ -48,7 +48,7 @@ export const createVerification = async (email) => {
         f7.dialog.alert(`Ne adresen e emailit<br> ${email} <br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Verification Sent");
         return token;
     } catch (error) {
-        f7.dialog.alert(error.message, "Verification Failed");
+        f7.dialog.alert(error.message, "Create Verification Failed");
         return null;
     }
 }
@@ -56,10 +56,11 @@ export const createVerification = async (email) => {
 export const updateVerification = async (userId, secret) => {
     try {
         const token = await appwriteSdk.account.updateVerification(userId, secret);
+        f7.dialog.alert(token.userId, "Update Verification Succedded");
         return token;
     } catch (error) {
         console.log(error)
-        f7.dialog.alert(error.message, "Verification Failed");
+        f7.dialog.alert(error.message, "Update Verification Failed");
         return null;
     }
 }
