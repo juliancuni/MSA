@@ -7,14 +7,14 @@ export const login = async (email, password) => {
         localStorage.setItem('sessionId', session.$id);
         return session;
     } catch (error) {
-        f7.notification.create({
-            title: 'microservices.al',
-            // titleRightText: 'now',
-            subtitle: "Login Failed",
-            text: error.message,
-            closeOnClick: true,
-            closeTimeout: 5000
-        }).open();
+        // f7.notification.create({
+        //     title: 'microservices.al',
+        //     subtitle: "Login Failed",
+        //     text: error.message,
+        //     closeOnClick: true,
+        //     closeTimeout: 5000
+        // }).open();
+        f7.dialog.alert(error.message, "Login Failed");
         return null;
     }
 }
@@ -45,7 +45,7 @@ export const register = async (fullname, email, password) => {
 export const createVerification = async (email) => {
     try {
         const token = await appwriteSdk.account.createVerification('http://localhost:3000/auth/emailverify');
-        f7.dialog.alert(`Ne adresen e emailit<br> ${email} <br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Verification Sent");
+        f7.dialog.alert(`Ne adresen e emailit<br> ${email} <br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Email Verification Sent");
         return token;
     } catch (error) {
         f7.dialog.alert(error.message, "Create Verification Failed");
@@ -56,11 +56,11 @@ export const createVerification = async (email) => {
 export const updateVerification = async (userId, secret) => {
     try {
         const token = await appwriteSdk.account.updateVerification(userId, secret);
-        f7.dialog.alert(token.userId, "Update Verification Succedded");
+        // f7.dialog.alert(token.userId, "Email Verification");
         return token;
     } catch (error) {
         console.log(error)
-        f7.dialog.alert(error.message, "Update Verification Failed");
+        f7.dialog.alert(error.message, "Email Verification Failed");
         return null;
     }
 }

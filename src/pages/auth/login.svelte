@@ -11,6 +11,7 @@
     import Footer from "./components/footer.svelte";
     import { login, getLoggedInUser } from "../../js/services/auth.services";
     import store from "../../js/store";
+    
     export let f7router;
 
     let email = "julian.cuni@microservices.al";

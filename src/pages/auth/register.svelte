@@ -37,8 +37,6 @@
             }
             f7router.navigate("/auth/login");
         }
-        // if(user)
-        // f7router.navigate("/");
         f7.progressbar.hide();
     };
 </script>

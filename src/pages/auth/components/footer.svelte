@@ -7,6 +7,6 @@
 <br />
 <BlockFooter>
     <Link href="/">Home Page</Link> |
-    <Link onClick={() => f7.dialog.alert("Not Available")}>Recover Password</Link> |
-    <Link onClick={() => f7.dialog.alert("Not Available")}>Contact</Link>
+    <Link onClick={() => f7.dialog.alert("Not Available", "Recover Password")}>Recover Password</Link> |
+    <Link onClick={() => f7.dialog.alert("Not Available", "Contact Form")}>Contact</Link>
 </BlockFooter>
