@@ -2,7 +2,6 @@
     import {
         f7,
         Navbar,
-        NavTitle,
         NavRight,
         NavLeft,
         Link,

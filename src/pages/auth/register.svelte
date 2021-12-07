@@ -32,8 +32,7 @@
         if (user) {
             const session = await login(email, password);
             if (session) {
-                await createVerification(email);
-                // await logout(session.$id);
+                await createVerification();
             }
             f7router.navigate("/auth/login");
         }

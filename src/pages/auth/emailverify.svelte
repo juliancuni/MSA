@@ -1,5 +1,11 @@
 <script>
-    import { f7, Page, Block, BlockTitle, Row, Col, Button } from "framework7-svelte";
+    import {
+        f7,
+        Page,
+        Block,
+        BlockTitle,
+        Link,
+    } from "framework7-svelte";
     import { onMount } from "svelte";
     import {
         logout,
@@ -9,6 +15,7 @@
 
     export let f7route;
     export let f7router;
+
     const userId = f7route.query.userId;
     const secret = f7route.query.secret;
     const expire = f7route.query.expire;
@@ -33,8 +40,10 @@
         } else {
             token = await updateVerification(userId, secret);
             if (token) {
-                await logout(localStorage.getItem("sessionId"));
-                store.dispatch("logoutUser");
+                if (localStorage.getItem("sessionId")) {
+                    await logout(localStorage.getItem("sessionId"));
+                    store.dispatch("logoutUser");
+                }
             }
         }
     });
@@ -44,15 +53,15 @@
     <Block strong inset>
         {#if userId || secret}
             {#if token}
-                <BlockTitle>Success</BlockTitle>
+                <BlockTitle>Email Verification Succeded!</BlockTitle>
             {:else}
-                <BlockTitle>Failure</BlockTitle>
-
+                <BlockTitle>Failure! Check your email or ask for another verification email.</BlockTitle>
             {/if}
         {:else}
             <BlockTitle>No UserId or Secret</BlockTitle>
         {/if}
-        <Button fill>Login</Button>
+        <Link href="/auth/login">Go To Login</Link>
+        <!-- <Button fill>Login</Button> -->
     </Block>
 </Page>
 

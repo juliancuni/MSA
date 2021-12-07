@@ -7,13 +7,6 @@ export const login = async (email, password) => {
         localStorage.setItem('sessionId', session.$id);
         return session;
     } catch (error) {
-        // f7.notification.create({
-        //     title: 'microservices.al',
-        //     subtitle: "Login Failed",
-        //     text: error.message,
-        //     closeOnClick: true,
-        //     closeTimeout: 5000
-        // }).open();
         f7.dialog.alert(error.message, "Login Failed");
         return null;
     }
@@ -58,10 +51,10 @@ export const register = async (fullname, email, password) => {
     }
 }
 
-export const createVerification = async (email) => {
+export const createVerification = async () => {
     try {
         const token = await appwriteSdk.account.createVerification('http://localhost:3000/auth/emailverify');
-        f7.dialog.alert(`Ne adresen e emailit<br> ${email} <br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Email Verification Sent");
+        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Email Verification Sent");
         return token;
     } catch (error) {
         f7.dialog.alert(error.message, "Create Verification Failed");
