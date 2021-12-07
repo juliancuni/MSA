@@ -22,9 +22,10 @@
         f7.progressbar.show();
         const sessionId = localStorage.getItem("sessionId");
         const loggedOut = await logout(sessionId);
-        if (loggedOut) {
-            store.dispatch("logoutUser");
-        }
+        // if (loggedOut) {
+        //     store.dispatch("logoutUser");
+        // }
+        store.dispatch("logoutUser");
         f7.progressbar.hide();
     };
     const setLang = () => {
@@ -34,12 +35,17 @@
 </script>
 
 <Navbar>
-    <NavTitle>
-        <Link noLinkClass href="/" color="black">{f7.name}</Link>
-    </NavTitle>
     <NavLeft>
-        <Link href="/app/dashboard">Dashboard</Link>
+        <Link
+            iconIos="f7:menu"
+            iconAurora="f7:menu"
+            iconMd="material:menu"
+            panelOpen="left"
+        />
     </NavLeft>
+    <!-- <NavLeft>
+        <Link href="/app/dashboard">Dashboard</Link>
+    </NavLeft> -->
     <NavRight>
         <Link
             smartSelect

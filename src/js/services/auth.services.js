@@ -1,4 +1,4 @@
-import { f7 } from 'framework7-svelte';
+import { f7, app } from 'framework7-svelte';
 import { appwriteSdk } from './appwrite.sdk';
 
 export const login = async (email, password) => {
@@ -27,6 +27,8 @@ export const logout = async (sessionId) => {
         return true;
     } catch (error) {
         f7.dialog.alert(error.message, "Logout Failed");
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('user');
         return false;
     }
 }
@@ -37,7 +39,21 @@ export const register = async (fullname, email, password) => {
         if (user) localStorage.setItem('user', JSON.stringify(user));
         return user;
     } catch (error) {
-        f7.dialog.alert(error.message, "Register Failed");
+        f7.dialog.create({
+            title: "Register Failed",
+            text: error.message,
+            buttons: [
+                // {
+                //     text: "Recover Password",
+                //     color: "red",
+                //     onClick: () => { console.log(f7.theme) }
+                // },
+                {
+                    text: "Ok"
+                }
+            ]
+        }).open()
+        // f7.dialog.alert(error.message, "Register Failed");
         return null;
     }
 }
