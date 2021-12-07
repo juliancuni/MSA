@@ -8,22 +8,24 @@
         Block,
         NavTitle,
         Link,
+        PageContent,
     } from "framework7-svelte";
-
-    let component;
-    console.log(component)
-    // component.instance();
 </script>
 
-<Panel left reveal themeDark visibleBreakpoint={1024} bind:this={component}>
-    <Navbar>
-        <NavTitle>
-            <Link noLinkClass href="/" color="white">{f7.name}</Link>
-        </NavTitle>
-    </Navbar>
-    <View>
-        <Page>
-            <Block>Left panel content goes here</Block>
-        </Page>
-    </View>
+<Panel left reveal themeDark visibleBreakpoint={1280}>
+    <Page>
+        <PageContent>
+            <Navbar>
+                <NavTitle>
+                    <Link noLinkClass href="/" color="white">{f7.name}</Link>
+                </NavTitle>
+                <p>Main Nav</p>
+            </Navbar>
+            <Block strong>
+                <Link href="/app/dashboard" panelClose>Dashboard</Link>
+            </Block>
+            <Link href="/app/test" panelClose>Test</Link>
+            <Link href="/auth/login" panelClose>Login</Link>
+        </PageContent>
+    </Page>
 </Panel>

@@ -27,10 +27,6 @@
     import routes from "../js/routes";
     import store from "../js/store";
 
-    console.log(getDevice());
-    if (getDevice().desktop) {
-        console.log(theme);
-    }
     let f7params = {
         name: "AMMS",
         theme: "auto",
@@ -40,16 +36,16 @@
 </script>
 
 <App {...f7params}>
-    <!-- RightPanel -->
-    <RightPanel />
     <!-- Your main view, should have "view-main" class -->
     <View
         main
-        class="safe-areas view-main"
+        class="safe-areas view-main view-init"
         url="/"
         browserHistory={true}
         browserHistorySeparator=""
     >
+        <!-- RightPanel -->
+        <RightPanel />
         <!-- TopNap -->
         <Nav />
     </View>

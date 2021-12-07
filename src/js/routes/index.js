@@ -6,6 +6,8 @@ import NotFoundPage from '../../pages/notfound.svelte';
 import authRoutes from './auth.routes';
 import appRoutes from './app.routes';
 
+export const router = this;
+
 var routes = [
     {
         path: '/',

@@ -22,10 +22,8 @@
         f7.progressbar.show();
         const sessionId = localStorage.getItem("sessionId");
         const loggedOut = await logout(sessionId);
-        // if (loggedOut) {
-        //     store.dispatch("logoutUser");
-        // }
         store.dispatch("logoutUser");
+        f7.views.main.router.navigate("/");
         f7.progressbar.hide();
     };
     const setLang = () => {

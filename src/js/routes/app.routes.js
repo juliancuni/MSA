@@ -1,24 +1,18 @@
-import { f7 } from 'framework7-svelte';
 import DashboardPage from '../../pages/app/dashboard.svelte';
-import LoginPage from '../../pages/auth/login.svelte';
+import TestPage from '../../pages/app/test.svelte';
+import { authGuard } from './guards/auth.guard';
 
-import store from '../store';
-const isAuthenticated = store.getters.authenticated;
-const user = store.getters.loggedInUser;
 const appRoutes = [
     {
-        path: '/dashboard',
+        path: 'dashboard',
         async({ resolve, reject }) {
-            if (isAuthenticated.value) {
-                if (user.value.emailVerification) {
-                    resolve({ component: DashboardPage })
-                } else {
-                    reject()
-                    f7.dialog.alert("STOP! Email i paverifikuar!")
-                }
-            } else {
-                resolve({ component: LoginPage })
-            }
+            authGuard(resolve, reject, DashboardPage);
+        }
+    },
+    {
+        path: '/test',
+        async({ resolve, reject }) {
+            authGuard(resolve, reject, TestPage);
         }
     }
 ]

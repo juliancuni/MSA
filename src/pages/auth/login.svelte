@@ -11,8 +11,9 @@
     import Footer from "./components/footer.svelte";
     import { login, getLoggedInUser } from "../../js/services/auth.services";
     import store from "../../js/store";
-    
+
     export let f7router;
+    export let f7route;
 
     let email = "julian.cuni@microservices.al";
     let password = "36638833";
@@ -25,7 +26,7 @@
             const user = await getLoggedInUser();
             if (user) {
                 store.dispatch("loginUser", user);
-                f7router.navigate("/");
+                f7router.navigate("/app/dashboard");
             }
         }
         f7.progressbar.hide();
