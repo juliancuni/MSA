@@ -51,6 +51,27 @@ export const register = async (fullname, email, password) => {
     }
 }
 
+export const createRecovery = async (email) => {
+    try {
+        const token = appwriteSdk.account.createRecovery(email, "http://localhost:3000/auth/passwordrecovery");
+        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun per te rekuperuar fjalekalimin. <br>Hapni adresen dhe ndiqni udhezimet aty.`, "Password Recovery Sent");
+        return token;
+    } catch (error) {
+        f7.dialog.alert(error.message, "Password Recovery Failed");
+        return null;
+    }
+}
+
+export const updatePasswordRecovery = async (userId, secret, password) => {
+    try {
+        const token = await appwriteSdk.account.updateRecovery(userId, secret, password, password);
+        return token;
+    } catch (error) {
+        f7.dialog.alert(error.message, "Password Recovery Failed");
+        return null;
+    }
+}
+
 export const createVerification = async () => {
     try {
         const token = await appwriteSdk.account.createVerification('http://localhost:3000/auth/emailverify');

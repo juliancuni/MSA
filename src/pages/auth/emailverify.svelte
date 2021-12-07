@@ -28,7 +28,7 @@
         if (parseInt(expire) * 1000 < Date.now()) {
             isExpired = true;
             f7.dialog.alert(
-                "Verification Token expired",
+                "Verification Link expired",
                 "Email Verification Failed!"
             );
         } else if (!userId || !secret) {
