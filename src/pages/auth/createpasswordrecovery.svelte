@@ -41,7 +41,7 @@
     </List>
     <List>
         <Button raised onClick={recoverPassword}>Recover</Button>
-        <ListButton color="green" href="/auth/register">Login</ListButton>
+        <ListButton color="green" href="/auth/login">Login</ListButton>
     </List>
     <Footer />
 </Page>
