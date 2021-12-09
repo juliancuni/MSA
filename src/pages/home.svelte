@@ -12,7 +12,7 @@
     export let f7route;
     export let f7router;
 
-    $: homepage = $t("homepage");
+    $: homepage = $t("home");
 </script>
 
 <Page name="home">

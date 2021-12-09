@@ -17,7 +17,7 @@
     export let f7router;
     export let f7route;
 
-    $: rekuperopage = $t("rekupero");
+    $: rikuperopage = $t("rikupero");
     $: ui = $t("ui");
 
     // let email = "julian.cuni@microservices.al";
@@ -35,9 +35,9 @@
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="createPasswordRecovery">
-    <LoginScreenTitle>{rekuperopage.titulli}</LoginScreenTitle>
+    <LoginScreenTitle>{rikuperopage.titulli}</LoginScreenTitle>
     <Block strong inset>
-        <p>{rekuperopage.udhezim}</p>
+        <p>{rikuperopage.udhezim}</p>
     </Block>
     <List form>
         <ListInput

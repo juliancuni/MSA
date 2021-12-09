@@ -7,20 +7,27 @@
         ListInput,
         Button,
         ListButton,
+        Block,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
     import { updatePasswordRecovery } from "../../js/services/auth.services";
-    import store from "../../js/store";
+    import { t } from "../../js/i18n";
 
     export let f7router;
     export let f7route;
+
+    $: rikuperoUpdatePage = $t("rikuperoUpdate");
+    $: ui = $t("ui");
 
     const userId = f7route.query.userId;
     const secret = f7route.query.secret;
     const expire = f7route.query.expire;
 
-    let password = "366388333";
-    let passwordAgain = "366388333";
+    // let password = "366388333";
+    // let passwordAgain = "366388333";
+
+    let password = "";
+    let passwordAgain = "";
 
     const resetPassword = async () => {
         f7.progressbar.show();
@@ -31,7 +38,6 @@
                 "Password Recovery Failed!"
             );
         } else if (!userId || !secret) {
-            isParamGabim = true;
             f7.dialog.alert(
                 "UserId or Secret Missing<br>Check your link and try again",
                 "Wrong Params"
@@ -57,26 +63,33 @@
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
-    <LoginScreenTitle>{f7.name} Login</LoginScreenTitle>
+    <LoginScreenTitle>{rikuperoUpdatePage.titulli}</LoginScreenTitle>
+    <Block strong inset>
+        <p>{rikuperoUpdatePage.udhezim}</p>
+    </Block>
     <List form>
         <ListInput
-            label="Password"
+            label={ui.input.fjalekalimi.label}
             type="password"
-            placeholder="New Password"
+            placeholder={ui.input.fjalekalimi.placeholder}
             value={password}
             onInput={(e) => (password = e.target.value)}
         />
         <ListInput
-            label="Password Again"
+            label={ui.input.fjalekalimiPrape.label}
             type="password"
-            placeholder="Repeat password"
+            placeholder={ui.input.fjalekalimiPrape.placeholder}
             value={passwordAgain}
             onInput={(e) => (passwordAgain = e.target.value)}
         />
     </List>
     <List>
-        <Button raised onClick={resetPassword}>Reset Password</Button>
-        <ListButton color="green" href="/auth/login">Login</ListButton>
+        <Button raised onClick={resetPassword}
+            >{ui.button.resetFjalekalimin}</Button
+        >
+        <ListButton color="green" href="/auth/login"
+            >{ui.button.login}</ListButton
+        >
     </List>
     <Footer />
 </Page>

@@ -4,7 +4,8 @@ export default {
     about: { titulli: "Hello!", njoftim: "Under Construction" },
     login: { titulli: "Login", button: "Login" },
     regjistro: { titulli: "Regsiter" },
-    rekupero: { titulli: "Recover your Password", udhezim: "Please enter your email below. We will send an mesagge shortly with instructions to recover you password." },
+    rikupero: { titulli: "Recover your Password", udhezim: "Please enter your email below. We will send you a message shortly with instructions to recover your password." },
+    rikuperoUpdate: { titulli: "Reset your Password", udhezim: "Please use the form below to create a new password. Remember that it must be at least 6 characters long. It's recommended that you use uppercase and lowercase letters, numbers, and non-alphanumeric characters." },
 
     auth: {
       links: {
@@ -12,20 +13,30 @@ export default {
         rikupero: "Recover Password",
         kontakt: "Contact"
       },
-      alerts: { kontakt: { titulli: "Contact Form", mesazhi: "Under Construction" } }
     },
     ui: {
       button: {
         ruaj: "Save",
         login: "Login",
         regjistro: "Register",
-        dergoEmail: "Send Email"
+        dergoEmail: "Send Email",
+        resetFjalekalimin: "Reset Password"
       },
       input: {
         email: { label: "Email", placeholder: "email@domain.com" },
         fjalekalimi: { label: "Password", placeholder: "Min. 6 char" },
         fjalekalimiPrape: { label: "Repeat", placeholder: "Repeat Password" },
         emriPlote: { label: "Full Name", placeholder: "Your full name" }
+      },
+      alerts: {
+        kontakt: {
+          titulli: "Contact Form",
+          mesazhi: "Under Construction"
+        },
+        login: {
+          titulli: "Login Failed",
+          mesazhi: ""
+        }
       }
     },
 
@@ -42,32 +53,44 @@ export default {
     },
   },
   sq: {
-    homepage: { titulli: "Përshendetje!", njoftim: "Në ndërtim" },
+    home: { titulli: "Përshendetje!", njoftim: "Në ndërtim" },
     about: { titulli: "Përshendetje!", njoftim: "Në ndërtim" },
     login: { titulli: "Login", button: "Login" },
     regjistro: { titulli: "Regjistrohuni" },
-    rekupero: { titulli: "Rekupero fjalëkalimin", udhezim: "Ju lutemi vendosni email-in tuaj më poshtë. Do ju dërgojmë njw email me udhëzimet përkatëse për të rekuperuaj fjalëkalimin." },
+    rikupero: { titulli: "Rikupero fjalëkalimin", udhezim: "Ju lutemi vendosni email-in tuaj më poshtë. Do ju dërgojmë një mesazh me udhëzimet përkatëse për të rikuperuar fjalëkalimin." },
+    rikuperoUpdate: { titulli: "Reset fjalëkalimin", udhezim: "Ju lutemi përdorni formën më poshtë për të krijuar fjalëkalimin e ri. Mos harroni se fjalëkalimi duhet të jetë të paktën 6 karaktere i gjatë. Rekomandohet që të përdorni gërma të mëdha dhe të vogla, numra dhe karaktere të tjera jo-alfanumerike" },
 
     auth: {
       links: {
         homepage: "Kreu",
-        rikupero: "Rekupero Fjalëkalimin",
+        rikupero: "Rikupero Fjalëkalimin",
+        reset: "Reset",
         kontakt: "Kontakt"
       },
-      alerts: { kontakt: { titulli: "Forma e Kontaktit", mesazhi: "Në ndërtim" } }
     },
     ui: {
       button: {
         ruaj: "Ruaj",
         login: "Login",
         regjistro: "Regjistrohuni",
-        dergoEmail: "Dergo Email"
+        dergoEmail: "Dergo Email",
+        resetFjalekalimin: "Reset Fjalwwkalimin"
       },
       input: {
         email: { label: "Email", placeholder: "email@domain.com" },
         fjalekalimi: { label: "Fjalëkalimi", placeholder: "Të paktën 6 karaktere" },
         fjalekalimiPrape: { label: "Përserite", placeholder: "Përsërit Fjalëkalimin" },
         emriPlote: { label: "Emri i Plotë", placeholder: "Emer Mbiemer" }
+      },
+      alerts: {
+        kontakt: {
+          titulli: "Forma e Kontaktit",
+          mesazhi: "Në ndërtim"
+        },
+        login: {
+          titulli: "Login Dështoi",
+          mesazhi: ""
+        }
       }
     },
     profile: {

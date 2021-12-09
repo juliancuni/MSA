@@ -17,8 +17,8 @@
     export let f7route;
 
     // let email = "julian.cuni@microservices.al";
-    let email = "";
     // let password = "36638833";
+    let email = "";
     let password = "";
     $: loginpage = $t("login");
     $: ui = $t("ui");

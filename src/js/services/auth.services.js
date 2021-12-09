@@ -40,7 +40,7 @@ export const register = async (fullname, email, password) => {
 export const createRecovery = async (email) => {
     try {
         const token = await appwriteSdk.account.createRecovery(email, "http://localhost:3000/auth/passwordrecovery");
-        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun per te rekuperuar fjalekalimin. <br>Hapni adresen dhe ndiqni udhezimet aty.`, "Password Recovery Sent");
+        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun per te rikuperuar fjalekalimin. <br>Hapni adresen dhe ndiqni udhezimet aty.`, "Password Recovery Sent");
         console.log(token)
         return token;
     } catch (error) {
