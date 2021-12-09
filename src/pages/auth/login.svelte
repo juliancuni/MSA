@@ -11,12 +11,17 @@
     import Footer from "./components/footer.svelte";
     import { login, getLoggedInUser } from "../../js/services/auth.services";
     import store from "../../js/store";
+    import { t } from "../../js/i18n";
 
     export let f7router;
     export let f7route;
 
-    let email = "julian.cuni@microservices.al";
-    let password = "36638833";
+    // let email = "julian.cuni@microservices.al";
+    let email = "";
+    // let password = "36638833";
+    let password = "";
+    $: loginpage = $t("login");
+    $: ui = $t("ui");
 
     const loginUser = async () => {
         f7.progressbar.show();
@@ -34,26 +39,28 @@
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
-    <LoginScreenTitle>{f7.name} Login</LoginScreenTitle>
+    <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
     <List form>
         <ListInput
-            label="Email"
+            label={ui.input.email.label}
             type="email"
-            placeholder="email@domain.al"
+            placeholder={ui.input.email.placeholder}
             value={email}
             onInput={(e) => (email = e.target.value)}
         />
         <ListInput
-            label="Password"
+            label={ui.input.fjalekalimi.label}
             type="password"
-            placeholder="Your password"
+            placeholder={ui.input.fjalekalimi.placeholder}
             value={password}
             onInput={(e) => (password = e.target.value)}
         />
     </List>
     <List>
-        <Button raised onClick={loginUser}>Login</Button>
-        <ListButton color="green" href="/auth/register">Register</ListButton>
+        <Button raised onClick={loginUser}>{loginpage.button}</Button>
+        <ListButton color="green" href="/auth/register"
+            >{ui.button.regjistro}</ListButton
+        >
     </List>
     <Footer />
 </Page>

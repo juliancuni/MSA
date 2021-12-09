@@ -1,18 +1,12 @@
 <script>
-    import {
-        f7,
-        Page,
-        Block,
-        BlockTitle,
-        Link,
-    } from "framework7-svelte";
+    import { f7, Page, Block, BlockTitle, Link } from "framework7-svelte";
     import { onMount } from "svelte";
     import {
         logout,
         updateVerification,
     } from "../../js/services/auth.services";
     import store from "../../js/store";
-
+    import { t } from "../../js/i18n";
     export let f7route;
     export let f7router;
 
@@ -55,7 +49,10 @@
             {#if token}
                 <BlockTitle>Email Verification Succeded!</BlockTitle>
             {:else}
-                <BlockTitle>Failure! Check your email or ask for another verification email.</BlockTitle>
+                <BlockTitle
+                    >Failure! Check your email or ask for another verification
+                    email.</BlockTitle
+                >
             {/if}
         {:else}
             <BlockTitle>No UserId or Secret</BlockTitle>

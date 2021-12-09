@@ -44,9 +44,7 @@
             <Block strong>
                 <Link href="/app/dashboard" panelClose>Dashboard</Link>
             </Block>
-
-            <Link href="/app/test" panelClose>Test</Link>
-            <Link href="/auth/login" panelClose>Login</Link>
+            <Block strong />
         </PageContent>
     </Page>
 </Panel>

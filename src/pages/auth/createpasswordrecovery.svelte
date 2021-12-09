@@ -7,15 +7,21 @@
         ListInput,
         Button,
         ListButton,
+        Block,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
     import { createRecovery } from "../../js/services/auth.services";
     import store from "../../js/store";
+    import { t } from "../../js/i18n";
 
     export let f7router;
     export let f7route;
 
-    let email = "julian.cuni@microservices.al";
+    $: rekuperopage = $t("rekupero");
+    $: ui = $t("ui");
+
+    // let email = "julian.cuni@microservices.al";
+    let email = "";
 
     const recoverPassword = async () => {
         f7.progressbar.show();
@@ -29,19 +35,22 @@
 </script>
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="createPasswordRecovery">
-    <LoginScreenTitle>{f7.name} Recover your password</LoginScreenTitle>
+    <LoginScreenTitle>{rekuperopage.titulli}</LoginScreenTitle>
+    <Block strong inset>
+        <p>{rekuperopage.udhezim}</p>
+    </Block>
     <List form>
         <ListInput
-            label="Email"
+            label={ui.input.email.label}
             type="email"
-            placeholder="email@domain.al"
+            placeholder={ui.input.email.placeholder}
             value={email}
             onInput={(e) => (email = e.target.value)}
         />
     </List>
     <List>
-        <Button raised onClick={recoverPassword}>Recover</Button>
-        <ListButton color="green" href="/auth/login">Login</ListButton>
+        <Button raised onClick={recoverPassword}>{ui.button.dergoEmail}</Button>
+        <ListButton color="green" href="/auth/login">{ui.button.login}</ListButton>
     </List>
     <Footer />
 </Page>

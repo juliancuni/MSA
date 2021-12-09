@@ -1,11 +1,31 @@
 <script>
-    import { Page, Navbar } from "framework7-svelte";
+    import {
+        f7,
+        Page,
+        Block,
+        Row,
+        Col,
+        List,
+        ListInput,
+    } from "framework7-svelte";
 </script>
 
 <Page name="userprofile">
-    <Navbar title="Contacts List">asd</Navbar>
-    <Navbar title="Contacts List">asd</Navbar>
-    <Navbar title="Contacts List">asd</Navbar>
-    <Navbar title="Contacts List">asd</Navbar>
-    <Navbar title="Contacts List">asd</Navbar>
+    <Block strong>
+        <p>Profili per</p>
+        <Row>
+            <Col width="100" medium="50">
+                <List noHairlinesMd>
+                    <ListInput
+                        label="Full Name"
+                        type="text"
+                        placeholder="Your name"
+                        clearButton
+                    >
+                        <i class="icon demo-list-icon" slot="media" />
+                    </ListInput>
+                </List>
+            </Col>
+        </Row>
+    </Block>
 </Page>
