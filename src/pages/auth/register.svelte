@@ -24,14 +24,14 @@
     $: loginpage = $t("login");
     $: ui = $t("ui");
 
-    // let fullName = "JC";
-    // let email = "julian.cuni@microservices.al";
-    // let password = "36638833";
-    // let passwordRepeat = "36638833";
-    let fullName = "";
-    let email = "";
-    let password = "";
-    let passwordRepeat = "";
+    let fullName = "JC";
+    let email = "julian.cuni@microservices.al";
+    let password = "36638833";
+    let passwordRepeat = "36638833";
+    // let fullName = "";
+    // let email = "";
+    // let password = "";
+    // let passwordRepeat = "";
     const registerUser = async () => {
         f7.progressbar.show();
         const user = await register(fullName, email, password);

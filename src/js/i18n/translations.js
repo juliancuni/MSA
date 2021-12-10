@@ -36,6 +36,31 @@ export default {
         login: {
           titulli: "Login Failed",
           mesazhi: ""
+        },
+        logout: {
+          titulli: "Logout Failed",
+          mesazhi: ""
+        },
+        regjistro: {
+          titulli: "Register Failed",
+          mesazhi: ""
+        },
+        rikupero: {
+          titulli: "Password Recovery Failed",
+          mesazhi: ""
+        },
+        krijoVerifikimSukses: {
+          titulli: "Email Verification",
+          mesazhi: "We've sent a verification link in your mail. Please check your email and follow the instructions there to activate your account.",
+        },
+        verifikim: {
+          titulli: "Email Verification Failed",
+          mesazhi: ""
+        },
+        emailJoIVerifikuar: {
+          titulli: "Email Not Verified!",
+          mesazhi: `Please open your email.<br> There you'll find a message from us with the instructions on how to verify your email. <br> Please check your spam folder in case you missed it`,
+          action: "Resend Email"
         }
       }
     },
@@ -90,7 +115,37 @@ export default {
         login: {
           titulli: "Login Dështoi",
           mesazhi: ""
+        },
+        logout: {
+          titulli: "Logout Dështoi",
+          mesazhi: ""
+        },
+        regjistro: {
+          titulli: "Register Dështoi",
+          mesazhi: ""
+        },
+        rikupero: {
+          titulli: "Rikupero Fjalëkalimin Dështoi",
+          mesazhi: ""
+        },
+        krijoVerifikimSukses: {
+          titulli: "Emaili i verifikimit",
+          mesazhi: "Në adresën tuaj ë emailit<br> dërguam linkun e konfirmimit. <br>Hapni adresën dhe ndiqni udhezimet për të aktivizuar llogarinë që sapo krijuat.",
+        },
+        verifikim: {
+          titulli: "Verifikimi i Email Dështoi",
+          mesazhi: ""
+        },
+        emailJoIVerifikuar: {
+          titulli: "Email i PaVerifikuar!",
+          mesazhi: `Hapni emailin.<br> Aty do te gjeni udhezimet per te vazhduar. <br> Nese email nuk gjendet ne inbox, kontrolloni ne spam`,
+          action: "Ridërgo Email"
         }
+      },
+      error: {
+        bosh: "S'mund tww lihet bosh",
+        email: "Email format i parregullt",
+        fjalekalimi: "Fjalwwkalimi duhet tww jetww tww paktwwn 6 karaktere"
       }
     },
     profile: {

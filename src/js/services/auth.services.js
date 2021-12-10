@@ -1,13 +1,17 @@
 import { f7, app } from 'framework7-svelte';
 import { appwriteSdk } from './appwrite.sdk';
 
+const locale = localStorage.getItem("i18n");
+import translations from '../i18n/translations'
+const alerts = translations[locale].ui.alerts;
+
 export const login = async (email, password) => {
     try {
         const session = await appwriteSdk.account.createSession(email, password);
         localStorage.setItem('sessionId', session.$id);
         return session;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Login Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.login.titulli);
         return null;
     }
 }
@@ -19,7 +23,7 @@ export const logout = async (sessionId) => {
         localStorage.removeItem('user');
         return true;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Logout Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.logout.titulli);
         localStorage.removeItem('sessionId');
         localStorage.removeItem('user');
         return false;
@@ -32,7 +36,7 @@ export const register = async (fullname, email, password) => {
         if (user) localStorage.setItem('user', JSON.stringify(user));
         return user;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Register Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.regjistro.titulli);
         return null;
     }
 }
@@ -44,7 +48,7 @@ export const createRecovery = async (email) => {
         console.log(token)
         return token;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, `Password Recovery Failed`);
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.rekupero.titulli);
         return null;
     }
 }
@@ -54,7 +58,7 @@ export const updatePasswordRecovery = async (userId, secret, password) => {
         const token = await appwriteSdk.account.updateRecovery(userId, secret, password, password);
         return token;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Password Recovery Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.rikupero.titulli);
         return null;
     }
 }
@@ -62,10 +66,10 @@ export const updatePasswordRecovery = async (userId, secret, password) => {
 export const createVerification = async () => {
     try {
         const token = await appwriteSdk.account.createVerification('http://localhost:3000/auth/emailverify');
-        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun e konfirmimit. <br>Hapni adresen dhe ndiqni udhezimet per te aktivizuar llogarine qe sapo krijuat.`, "Email Verification Sent");
+        f7.dialog.alert(alerts.krijoVerifikimSukses.mesazhi, alerts.krijoVerifikimSukses.titulli);
         return token;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Create Verification Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.verifikim.titulli);
         return null;
     }
 }
@@ -77,7 +81,7 @@ export const updateVerification = async (userId, secret) => {
         return token;
     } catch (error) {
         console.log(error)
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Email Verification Failed");
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.verifikim.titulli);
         return null;
     }
 }
@@ -90,11 +94,11 @@ export const getLoggedInUser = async () => {
             return user
         };
         f7.dialog.create({
-            title: "Email Not Verified!",
-            text: `Hapni emailin ${user.email}<br> Aty do te gjeni udhezimet per te vazhduar. <br> Nese email nuk gjendet ne inbox, kontrolloni ne spam`,
+            title: alerts.emailJoIVerifikuar.titulli,
+            text: alerts.emailJoIVerifikuar.mesazhi,
             buttons: [
                 {
-                    text: "Resend email",
+                    text: alerts.emailJoIVerifikuar.action,
                     color: 'green',
                     onClick: async () => {
                         await createVerification()

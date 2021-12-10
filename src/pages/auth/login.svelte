@@ -16,10 +16,11 @@
     export let f7router;
     export let f7route;
 
-    // let email = "julian.cuni@microservices.al";
-    // let password = "36638833";
-    let email = "";
-    let password = "";
+    let email = "julian.cuni@microservices.al";
+    let password = "36638833";
+    // let email = "";
+    // let password = "";
+
     $: loginpage = $t("login");
     $: ui = $t("ui");
 
@@ -44,6 +45,7 @@
         <ListInput
             label={ui.input.email.label}
             type="email"
+            name="email"
             placeholder={ui.input.email.placeholder}
             value={email}
             onInput={(e) => (email = e.target.value)}
@@ -51,6 +53,7 @@
         <ListInput
             label={ui.input.fjalekalimi.label}
             type="password"
+            name="password"
             placeholder={ui.input.fjalekalimi.placeholder}
             value={password}
             onInput={(e) => (password = e.target.value)}
