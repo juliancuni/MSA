@@ -1,7 +1,7 @@
 import { derived, writable } from "svelte/store";
 import translations from "./translations";
 
-const localeString = localStorage.getItem("i18n") ? localStorage.getItem("i18n") : "en";
+export const localeString = localStorage.getItem("i18n") || "sq";
 export const lcl = writable(localeString);
 export const locales = Object.keys(translations);
 

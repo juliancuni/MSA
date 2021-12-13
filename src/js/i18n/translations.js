@@ -49,6 +49,10 @@ export default {
           titulli: "Password Recovery Failed",
           mesazhi: ""
         },
+        rikuperoSukses: {
+          titulli: "Recover Password",
+          mesazhi: "In your email address<br>we've sent the instruction to recover your password. <br>Please check your email and follow the instructions there.",
+        },
         krijoVerifikimSukses: {
           titulli: "Email Verification",
           mesazhi: "We've sent a verification link in your mail. Please check your email and follow the instructions there to activate your account.",
@@ -62,6 +66,12 @@ export default {
           mesazhi: `Please open your email.<br> There you'll find a message from us with the instructions on how to verify your email. <br> Please check your spam folder in case you missed it`,
           action: "Resend Email"
         }
+      },
+      validation: {
+        inputbosh: "Cannot be empty",
+        emailFormat: "Email format error",
+        fjalekalimiShkurter: "Password should be at least 6 characters long",
+        fjalekalimetNukPerputhen: "Passwords doesn't match"
       }
     },
 
@@ -98,8 +108,8 @@ export default {
         ruaj: "Ruaj",
         login: "Login",
         regjistro: "Regjistrohuni",
-        dergoEmail: "Dergo Email",
-        resetFjalekalimin: "Reset Fjalwwkalimin"
+        dergoEmail: "Dërgo Email",
+        resetFjalekalimin: "Reset Fjalëkalimin"
       },
       input: {
         email: { label: "Email", placeholder: "email@domain.com" },
@@ -128,6 +138,10 @@ export default {
           titulli: "Rikupero Fjalëkalimin Dështoi",
           mesazhi: ""
         },
+        rikuperoSukses: {
+          titulli: "Rikupero Fjalëkalimin",
+          mesazhi: "Në adresën tuaj të emailit<br> dërguam udhëzimet për të rikuperuar fjalëkalimin. <br>Hapni adresën tuaj dhe ndiqni udhëzimet aty.",
+        },
         krijoVerifikimSukses: {
           titulli: "Emaili i verifikimit",
           mesazhi: "Në adresën tuaj ë emailit<br> dërguam linkun e konfirmimit. <br>Hapni adresën dhe ndiqni udhezimet për të aktivizuar llogarinë që sapo krijuat.",
@@ -138,14 +152,15 @@ export default {
         },
         emailJoIVerifikuar: {
           titulli: "Email i PaVerifikuar!",
-          mesazhi: `Hapni emailin.<br> Aty do te gjeni udhezimet per te vazhduar. <br> Nese email nuk gjendet ne inbox, kontrolloni ne spam`,
+          mesazhi: `Ju lutemi hapni emailin.<br> Aty do të gjeni udhezimet për të vazhduar. <br> Nëse mesazhi ynë nuk gjendet në inbox, kontrolloni në spam`,
           action: "Ridërgo Email"
-        }
+        },
       },
-      error: {
-        bosh: "S'mund tww lihet bosh",
-        email: "Email format i parregullt",
-        fjalekalimi: "Fjalwwkalimi duhet tww jetww tww paktwwn 6 karaktere"
+      validation: {
+        inputbosh: "S'mund të lihet bosh",
+        emailFormat: "Formati i Email-it gabim",
+        fjalekalimiShkurter: "Fjalëkalimi duhet të jetë të paktën 6 karaktere",
+        fjalekalimetNukPerputhen: "Fjalëkalimet nuk përputhen"
       }
     },
     profile: {

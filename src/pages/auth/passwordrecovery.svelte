@@ -12,9 +12,14 @@
     import Footer from "./components/footer.svelte";
     import { updatePasswordRecovery } from "../../js/services/auth.services";
     import { t } from "../../js/i18n";
+    import validation from "../../js/form-validation";
 
     export let f7router;
     export let f7route;
+
+    let fields = { password: "", passwordRepeat: "" };
+    let errors = { password: "", passwordRepeat: "" };
+    let isFormValid = false;
 
     $: rikuperoUpdatePage = $t("rikuperoUpdate");
     $: ui = $t("ui");
@@ -23,42 +28,57 @@
     const secret = f7route.query.secret;
     const expire = f7route.query.expire;
 
-    // let password = "366388333";
-    // let passwordAgain = "366388333";
-
-    let password = "";
-    let passwordAgain = "";
-
     const resetPassword = async () => {
-        f7.progressbar.show();
-        if (parseInt(expire) * 1000 < Date.now()) {
-            isExpired = true;
-            f7.dialog.alert(
-                "Password Recovery Link expired",
-                "Password Recovery Failed!"
-            );
-        } else if (!userId || !secret) {
-            f7.dialog.alert(
-                "UserId or Secret Missing<br>Check your link and try again",
-                "Wrong Params"
-            );
+        isFormValid = true;
+        if (!validation.inputEmpty(fields.password)) {
+            errors.password = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (!validation.passwordShort(fields.password)) {
+            errors.password = ui.validation.fjalekalimiShkurter;
+            isFormValid = false;
         } else {
-            const token = await updatePasswordRecovery(
-                userId,
-                secret,
-                password
-            );
-            if (token) {
-                f7.dialog.alert(
-                    "Password reseted successfully<br>Go To Login",
-                    "Success",
-                    () => {
-                        f7router.navigate("/auth/login");
-                    }
-                );
-            }
+            errors.password = "";
         }
-        f7.progressbar.hide();
+        if (!validation.inputEmpty(fields.passwordRepeat)) {
+            errors.passwordRepeat = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (fields.password !== fields.passwordRepeat) {
+            errors.passwordRepeat = ui.validation.fjalekalimetNukPerputhen;
+            isFormValid = false;
+        } else {
+            errors.passwordRepeat = "";
+        }
+        if (isFormValid) {
+            f7.progressbar.show();
+            if (parseInt(expire) * 1000 < Date.now()) {
+                isExpired = true;
+                f7.dialog.alert(
+                    "Password Recovery Link expired",
+                    "Password Recovery Failed!"
+                );
+            } else if (!userId || !secret) {
+                f7.dialog.alert(
+                    "UserId or Secret Missing<br>Check your link and try again",
+                    "Wrong Params"
+                );
+            } else {
+                const token = await updatePasswordRecovery(
+                    userId,
+                    secret,
+                    fields.password
+                );
+                if (token) {
+                    f7.dialog.alert(
+                        "Password reseted successfully<br>Go To Login",
+                        "Success",
+                        () => {
+                            f7router.navigate("/auth/login");
+                        }
+                    );
+                }
+            }
+            f7.progressbar.hide();
+        }
     };
 </script>
 
@@ -72,15 +92,19 @@
             label={ui.input.fjalekalimi.label}
             type="password"
             placeholder={ui.input.fjalekalimi.placeholder}
-            value={password}
-            onInput={(e) => (password = e.target.value)}
+            value={fields.password}
+            onInput={(e) => (fields.password = e.target.value)}
+            errorMessageForce={errors.password}
+            errorMessage={errors.password}
         />
         <ListInput
             label={ui.input.fjalekalimiPrape.label}
             type="password"
             placeholder={ui.input.fjalekalimiPrape.placeholder}
-            value={passwordAgain}
-            onInput={(e) => (passwordAgain = e.target.value)}
+            value={fields.passwordRepeat}
+            onInput={(e) => (fields.passwordRepeat = e.target.value)}
+            errorMessageForce={errors.passwordRepeat}
+            errorMessage={errors.passwordRepeat}
         />
     </List>
     <List>

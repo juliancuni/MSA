@@ -13,6 +13,7 @@
     import { createRecovery } from "../../js/services/auth.services";
     import store from "../../js/store";
     import { t } from "../../js/i18n";
+    import validation from "../../js/form-validation";
 
     export let f7router;
     export let f7route;
@@ -22,15 +23,29 @@
 
     // let email = "julian.cuni@microservices.al";
     let email = "";
+    let error = "";
+    let isFormValid = false;
 
     const recoverPassword = async () => {
-        f7.progressbar.show();
-        const token = await createRecovery(email);
-        if (token) {
-            // f7router.navigate("/auth/login");
-            console.log(token);
+        isFormValid = true;
+        if (!validation.inputEmpty(email)) {
+            error = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (!validation.emailFormat(email)) {
+            error = ui.validation.emailFormat;
+            isFormValid = false;
+        } else {
+            error = "";
         }
-        f7.progressbar.hide();
+        if (isFormValid) {
+            f7.progressbar.show();
+            const token = await createRecovery(email);
+            if (token) {
+                f7router.navigate("/auth/login");
+                console.log(token);
+            }
+            f7.progressbar.hide();
+        }
     };
 </script>
 
@@ -46,11 +61,15 @@
             placeholder={ui.input.email.placeholder}
             value={email}
             onInput={(e) => (email = e.target.value)}
+            errorMessageForce={error}
+            errorMessage={error}
         />
     </List>
     <List>
         <Button raised onClick={recoverPassword}>{ui.button.dergoEmail}</Button>
-        <ListButton color="green" href="/auth/login">{ui.button.login}</ListButton>
+        <ListButton color="green" href="/auth/login"
+            >{ui.button.login}</ListButton
+        >
     </List>
     <Footer />
 </Page>

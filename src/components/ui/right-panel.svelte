@@ -14,7 +14,7 @@
     } from "framework7-svelte";
 
     let user = useStore("loggedInUser", (val) => (user = val));
-    const nameInitials = user?.name
+    $: nameInitials = user?.name
         .split(" ")
         .map((n) => n[0])
         .join("");

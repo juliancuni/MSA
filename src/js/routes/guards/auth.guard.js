@@ -1,10 +1,10 @@
 import { f7 } from 'framework7-svelte';
 import store from '../../store';
 import { createVerification, logout } from '../../services/auth.services'
-const locale = localStorage.getItem("i18n");
+import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
-const alerts = translations[locale].ui.alerts;
 
+const alerts = translations[locale].ui.alerts;
 const isAuthenticated = store.getters.authenticated;
 const user = store.getters.loggedInUser;
 

@@ -1,8 +1,8 @@
-import { f7, app } from 'framework7-svelte';
+import { f7 } from 'framework7-svelte';
 import { appwriteSdk } from './appwrite.sdk';
-
-const locale = localStorage.getItem("i18n");
+import { localeString as locale } from "../i18n";
 import translations from '../i18n/translations'
+
 const alerts = translations[locale].ui.alerts;
 
 export const login = async (email, password) => {
@@ -44,11 +44,11 @@ export const register = async (fullname, email, password) => {
 export const createRecovery = async (email) => {
     try {
         const token = await appwriteSdk.account.createRecovery(email, "http://localhost:3000/auth/passwordrecovery");
-        f7.dialog.alert(`Ne adresen tuaj te emailit<br> derguam linkun per te rikuperuar fjalekalimin. <br>Hapni adresen dhe ndiqni udhezimet aty.`, "Password Recovery Sent");
+        f7.dialog.alert(alerts.rikuperoSukses.mesazhi, alerts.rikuperoSukses.titulli);
         console.log(token)
         return token;
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.rekupero.titulli);
+        f7.dialog.alert(`${error.code}: ${error.message}`, alerts.rikupero.titulli);
         return null;
     }
 }
