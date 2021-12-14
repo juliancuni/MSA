@@ -1,3 +1,7 @@
+<script context="module">
+    getUserProfile();
+</script>
+
 <script>
     import {
         f7,
@@ -8,6 +12,7 @@
         List,
         ListInput,
     } from "framework7-svelte";
+    import { getUserProfile } from "../../js/services/user.service";
 </script>
 
 <Page name="userprofile">
