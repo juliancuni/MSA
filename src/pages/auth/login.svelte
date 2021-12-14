@@ -62,7 +62,15 @@
             f7.progressbar.hide();
         }
     };
+
+    const handleKeydown = (e) => {
+        if (e.keyCode === 13) {
+            loginUser();
+        }
+    };
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
