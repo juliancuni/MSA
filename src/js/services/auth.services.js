@@ -44,7 +44,7 @@ export const register = async (fullname, email, password) => {
 export const createRecovery = async (email) => {
     try {
         const token = await appwriteSdk.account.createRecovery(email, "http://localhost:3000/auth/passwordrecovery");
-        f7.dialog.alert(alerts.rikuperoSukses.mesazhi, alerts.rikuperoSukses.titulli);
+        f7.dialog.alert(alerts.krijoRikuperoSukses.mesazhi, alerts.krijoRikuperoSukses.titulli);
         console.log(token)
         return token;
     } catch (error) {

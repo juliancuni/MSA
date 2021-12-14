@@ -49,9 +49,21 @@ export default {
           titulli: "Password Recovery Failed",
           mesazhi: ""
         },
-        rikuperoSukses: {
+        krijoRikuperoSukses: {
           titulli: "Recover Password",
           mesazhi: "In your email address<br>we've sent the instruction to recover your password. <br>Please check your email and follow the instructions there.",
+        },
+        rikuperoFailExpired: {
+          titulli: "Expired!",
+          mesazhi: "Password Recovery Link expired"
+        },
+        rikuperoFailParams: {
+          titulli: "Wrong Params!",
+          mesazhi: "UserId or Secret Missing<br>Check your link and try again"
+        },
+        rikuperoSukses: {
+          titulli: "Ok!",
+          mesazhi: "New Password saved successfuly!"
         },
         krijoVerifikimSukses: {
           titulli: "Email Verification",
@@ -138,9 +150,21 @@ export default {
           titulli: "Rikupero Fjalëkalimin Dështoi",
           mesazhi: ""
         },
-        rikuperoSukses: {
+        krijoRikuperoSukses: {
           titulli: "Rikupero Fjalëkalimin",
           mesazhi: "Në adresën tuaj të emailit<br> dërguam udhëzimet për të rikuperuar fjalëkalimin. <br>Hapni adresën tuaj dhe ndiqni udhëzimet aty.",
+        },
+        rikuperoFailExpired: {
+          titulli: "Skaduar!",
+          mesazhi: "Ky link ka skaduar. Provoni sërish"
+        },
+        rikuperoFailParams: {
+          titulli: "Parametrat Gabim!",
+          mesazhi: "Linku ka gabime. UserId ose Sekreti mungojnë<br>Kontrolloni link-un dhe provoni sërish"
+        },
+        rikuperoSukses: {
+          titulli: "Ok!",
+          mesazhi: "Fjalëkalimi i ri u ruajt me sukses!"
         },
         krijoVerifikimSukses: {
           titulli: "Emaili i verifikimit",

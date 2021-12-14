@@ -28,6 +28,8 @@
     const secret = f7route.query.secret;
     const expire = f7route.query.expire;
 
+    console.log(parseInt(expire) * 1000, Date.now());
+
     const resetPassword = async () => {
         isFormValid = true;
         if (!validation.inputEmpty(fields.password)) {
@@ -50,16 +52,16 @@
         }
         if (isFormValid) {
             f7.progressbar.show();
+
             if (parseInt(expire) * 1000 < Date.now()) {
-                isExpired = true;
                 f7.dialog.alert(
-                    "Password Recovery Link expired",
-                    "Password Recovery Failed!"
+                    ui.alerts.rikuperoFailExpired.mesazhi,
+                    ui.alerts.rikuperoFailExpired.titulli
                 );
             } else if (!userId || !secret) {
                 f7.dialog.alert(
-                    "UserId or Secret Missing<br>Check your link and try again",
-                    "Wrong Params"
+                    ui.alerts.rikuperoFailParams.mesazhi,
+                    ui.alerts.rikuperoFailParams.titulli
                 );
             } else {
                 const token = await updatePasswordRecovery(
@@ -68,9 +70,10 @@
                     fields.password
                 );
                 if (token) {
+                    //TODO Translations
                     f7.dialog.alert(
-                        "Password reseted successfully<br>Go To Login",
-                        "Success",
+                        ui.alerts.rikuperoSukses.mesazhi,
+                        ui.alerts.rikuperoSukses.titulli,
                         () => {
                             f7router.navigate("/auth/login");
                         }
