@@ -21,7 +21,6 @@
     $: rikuperopage = $t("rikupero");
     $: ui = $t("ui");
 
-    // let email = "julian.cuni@microservices.al";
     let email = "";
     let error = "";
     let isFormValid = false;
@@ -42,7 +41,6 @@
             const token = await createRecovery(email);
             if (token) {
                 f7router.navigate("/auth/login");
-                console.log(token);
             }
             f7.progressbar.hide();
         }

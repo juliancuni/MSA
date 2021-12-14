@@ -28,8 +28,6 @@
     const secret = f7route.query.secret;
     const expire = f7route.query.expire;
 
-    console.log(parseInt(expire) * 1000, Date.now());
-
     const resetPassword = async () => {
         isFormValid = true;
         if (!validation.inputEmpty(fields.password)) {

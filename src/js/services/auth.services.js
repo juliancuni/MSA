@@ -45,7 +45,6 @@ export const createRecovery = async (email) => {
     try {
         const token = await appwriteSdk.account.createRecovery(email, "http://localhost:3000/auth/passwordrecovery");
         f7.dialog.alert(alerts.krijoRikuperoSukses.mesazhi, alerts.krijoRikuperoSukses.titulli);
-        console.log(token)
         return token;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, alerts.rikupero.titulli);
@@ -80,7 +79,6 @@ export const updateVerification = async (userId, secret) => {
         // f7.dialog.alert(token.userId, "Email Verification");
         return token;
     } catch (error) {
-        console.log(error)
         f7.dialog.alert(`${error.code}: ${error.message}`, alerts.verifikim.titulli);
         return null;
     }

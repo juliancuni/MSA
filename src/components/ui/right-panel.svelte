@@ -33,7 +33,6 @@
                 <Block strong>
                     <Link href="/app/userprofile" panelClose>
                         <Chip
-                            onclick={() => console.log("clicked")}
                             text={user?.name}
                             mediaBgColor="pink"
                             media={nameInitials}

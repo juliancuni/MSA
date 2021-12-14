@@ -28,11 +28,6 @@
     $: loginpage = $t("login");
     $: ui = $t("ui");
 
-    // let fullName = "JC";
-    // let email = "julian.cuni@microservices.al";
-    // let password = "36638833";
-    // let passwordRepeat = "36638833";
-
     const registerUser = async () => {
         isFormValid = true;
         if (!validation.inputEmpty(fields.fullName)) {
@@ -79,7 +74,6 @@
             if (user) {
                 const session = await login(fields.email, fields.password);
                 if (session) {
-                    console.log(f7route);
                     await createVerification();
                 }
                 f7router.navigate("/auth/login");

@@ -16,10 +16,6 @@
     export let f7router;
     export let f7route;
 
-    // let email = "julian.cuni@microservices.al";
-    // let password = "36638833";
-    // let email = "";
-    // let password = "";
     let fields = { email: "", password: "" };
     let errors = { email: "", password: "" };
     let isFormValid = false;
@@ -54,7 +50,6 @@
                 f7.loginScreen.close();
                 const user = await getLoggedInUser();
                 if (user) {
-                    console.log(f7route);
                     store.dispatch("loginUser", user);
                     f7router.navigate("/app/dashboard");
                 }
