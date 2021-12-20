@@ -11,7 +11,7 @@ const user = store.getters.loggedInUser;
 
 export const authGuard = (resolve, reject, component) => {
     if (isAuthenticated.value) {
-        if (user.value.emailVerified) {
+        if (user?.value?.emailVerified) {
             return resolve({ component })
         } else {
             f7.dialog.create({
@@ -41,14 +41,5 @@ export const authGuard = (resolve, reject, component) => {
     } else {
         f7.views.main.router.navigate("/auth/login");
         return reject();
-    }
-}
-
-export const unAuthGuard = (resolve, reject, component) => {
-    if (isAuthenticated.value) {
-        f7.views.main.router.navigate("/app/dashboard");
-        return reject();
-    } else {
-        return resolve({ component });
     }
 }

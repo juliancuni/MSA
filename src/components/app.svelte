@@ -1,7 +1,9 @@
 <script context="module">
     const user = getLoggedInUser();
     user.then((val) => {
-        store.dispatch("loginUser", val?.attributes);
+        if (val) {
+            store.dispatch("loginUser", val?.attributes);
+        }
     }).catch((err) => console.log(err));
 </script>
 

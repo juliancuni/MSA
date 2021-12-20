@@ -9,19 +9,29 @@
         Button,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import {
-        login,
-        logout,
-        register,
-        createVerification,
-    } from "../../js/services/appwrite/auth.services";
+    import { register, logout } from "../../js/services/parse/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
+
+    import store from "../../js/store";
+
     export let f7router;
     export let f7route;
 
-    let fields = { fullName: "", email: "", password: "", passwordRepeat: "" };
-    let errors = { fullName: "", email: "", password: "", passwordRepeat: "" };
+    let fields = {
+        fullName: "Taras Bulba",
+        username: "tb",
+        email: "julian.cuni@microservices.al",
+        password: "123456789Aa",
+        passwordRepeat: "123456789Aa",
+    };
+    let errors = {
+        fullName: "",
+        username: "",
+        email: "",
+        password: "",
+        passwordRepeat: "",
+    };
     let isFormValid = false;
 
     $: registerpage = $t("regjistro");
@@ -65,17 +75,16 @@
         }
         if (isFormValid) {
             f7.progressbar.show();
-
             const user = await register(
                 fields.fullName,
                 fields.email,
+                fields.username,
                 fields.password
             );
             if (user) {
-                const session = await login(fields.email, fields.password);
-                if (session) {
-                    await createVerification();
-                }
+                console.log(user);
+                await logout();
+                store.dispatch("logoutUser");
                 f7router.navigate("/auth/login");
             }
             f7.progressbar.hide();
@@ -89,7 +98,6 @@
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
-
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{registerpage.titulli}</LoginScreenTitle>
     <List form>

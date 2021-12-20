@@ -10,11 +10,7 @@
         useStore,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    // import { login, getLoggedInUser } from "../../js/services/appwrite/auth.services";
-    import {
-        login,
-        getLoggedInUser,
-    } from "../../js/services/parse/auth.services";
+    import { login } from "../../js/services/parse/auth.services";
     import store from "../../js/store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
@@ -36,12 +32,6 @@
         } else {
             errors.username = "";
         }
-        // else if (!validation.emailFormat(fields.email)) {
-        //     errors.email = ui.validation.emailFormat;
-        //     isFormValid = false;
-        // } else {
-        //     errors.email = "";
-        // }
         if (!validation.inputEmpty(fields.password)) {
             errors.password = ui.validation.inputbosh;
             isFormValid = false;
@@ -57,7 +47,7 @@
             if (user) {
                 f7.loginScreen.close();
                 store.dispatch("loginUser", user.attributes);
-                console.log(user.attributes)
+                console.log(user.attributes);
                 f7router.navigate("/app/dashboard");
             }
             f7.progressbar.hide();
@@ -77,7 +67,6 @@
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
-    <pre>{JSON.stringify(userLoggedin)}</pre>
     <List form>
         <ListInput
             label={ui.input.email.label}

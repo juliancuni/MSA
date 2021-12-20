@@ -2,9 +2,9 @@ import LoginPage from '../../pages/auth/login.svelte';
 import RegisterPage from '../../pages/auth/register.svelte';
 import CreateRecoveryPassPage from '../../pages/auth/createpasswordrecovery.svelte';
 import UpdateRecoveryPassPage from '../../pages/auth/passwordrecovery.svelte';
-import EmailVerifyPage from '../../pages/auth/emailverify.svelte';
+import EmailVerifiedPage from '../../pages/auth/emailverified.svelte';
 
-import { unAuthGuard } from './guards/auth.guard';
+import { unAuthGuard } from './guards/unauth.guard';
 
 const authRoutes = [
     {
@@ -31,10 +31,10 @@ const authRoutes = [
             unAuthGuard(resolve, reject, UpdateRecoveryPassPage);
         }
     },
-    
+
     {
-        path: '/emailverify/apps/:appid/verify_email',
-        component: EmailVerifyPage,
+        path: '/emailverified',
+        component: EmailVerifiedPage,
     }
 ]
 
