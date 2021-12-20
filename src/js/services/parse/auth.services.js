@@ -18,7 +18,6 @@ export const login = async (username, password) => {
 
 export const register = async (name, email, username, password) => {
     try {
-        console.log(name, email, username, password)
         const user = new Parse.User();
         user.set("name", name);
         user.setUsername(username);
@@ -48,18 +47,6 @@ export const getLoggedInUser = async () => {
         return user;
     } catch (error) {
         return null;
-    }
-}
-
-export const verifyEmail = async (link) => {
-    try {
-        console.log(link)
-        const res = await fetch(link);
-        console.log(res)
-        return true;
-    } catch (error) {
-        console.log(error);
-        return false;
     }
 }
 

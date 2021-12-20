@@ -17,7 +17,10 @@
     export let f7router;
     export let f7route;
 
-    let fields = { username: "juliancuni@gmail.com", password: "123456789Aa" };
+    let fields = {
+        username: import.meta.env.VITE_USERNAME,
+        password: import.meta.env.VITE_PASSWORD,
+    };
     let errors = { username: "", password: "" };
     let isFormValid = false;
 
@@ -69,10 +72,10 @@
     <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
     <List form>
         <ListInput
-            label={ui.input.email.label}
+            label={ui.input.perdoruesiOseEmail.label}
             type="text"
             name="username"
-            placeholder={ui.input.email.placeholder}
+            placeholder={ui.input.perdoruesiOseEmail.placeholder}
             value={fields.username}
             onInput={(e) => (fields.username = e.target.value)}
             errorMessageForce={errors.username}

@@ -24,9 +24,11 @@ export default {
       },
       input: {
         email: { label: "Email", placeholder: "email@domain.com" },
+        perdoruesiOseEmail: { label: "Email or Username", placeholder: "email@domain.com or johndoe" },
         fjalekalimi: { label: "Password", placeholder: "Min. 6 char" },
         fjalekalimiPrape: { label: "Repeat", placeholder: "Repeat Password" },
-        emriPlote: { label: "Full Name", placeholder: "Your full name" }
+        emriPlote: { label: "Full Name", placeholder: "Your full name" },
+        perdoruesi: { label: "Username", placeholder: "johndoe" },
       },
       alerts: {
         kontakt: {
@@ -125,9 +127,11 @@ export default {
       },
       input: {
         email: { label: "Email", placeholder: "email@domain.com" },
+        perdoruesiOseEmail: { label: "Email ose Perdoruesi", placeholder: "psh: email@domain.com ose alibuba " },
         fjalekalimi: { label: "Fjalëkalimi", placeholder: "Të paktën 6 karaktere" },
         fjalekalimiPrape: { label: "Përserite", placeholder: "Përsërit Fjalëkalimin" },
-        emriPlote: { label: "Emri i Plotë", placeholder: "Emer Mbiemer" }
+        emriPlote: { label: "Emri i Plotë", placeholder: "Emer Mbiemer" },
+        perdoruesi: { label: "Përdoruesi", placeholder: "psh: alibuba" }
       },
       alerts: {
         kontakt: {

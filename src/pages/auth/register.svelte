@@ -19,11 +19,11 @@
     export let f7route;
 
     let fields = {
-        fullName: "Taras Bulba",
-        username: "tb",
-        email: "julian.cuni@microservices.al",
-        password: "123456789Aa",
-        passwordRepeat: "123456789Aa",
+        fullName: import.meta.env.VITE_FULLNAME,
+        username: import.meta.env.VITE_USERNAME,
+        email: import.meta.env.VITE_EMAIL,
+        password: import.meta.env.VITE_PASSWORD,
+        passwordRepeat: import.meta.env.VITE_PASSWORD,
     };
     let errors = {
         fullName: "",
@@ -109,6 +109,15 @@
             onInput={(e) => (fields.fullName = e.target.value)}
             errorMessageForce={errors.fullName}
             errorMessage={errors.fullName}
+        />
+        <ListInput
+            label={ui.input.perdoruesi.label}
+            type="text"
+            placeholder={ui.input.perdoruesi.placeholder}
+            value={fields.username}
+            onInput={(e) => (fields.username = e.target.value)}
+            errorMessageForce={errors.username}
+            errorMessage={errors.username}
         />
         <ListInput
             label={ui.input.email.label}
