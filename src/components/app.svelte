@@ -1,31 +1,17 @@
 <script context="module">
-    const user = localStorage.getItem("user");
-    const sessionId = localStorage.getItem("sessionId");
-    if (user && sessionId) {
-        store.dispatch("loginUser", JSON.parse(user));
-    }
+    const user = getLoggedInUser();
+    user.then((val) => {
+        store.dispatch("loginUser", val?.attributes);
+    }).catch((err) => console.log(err));
 </script>
 
 <script>
-    import { getDevice } from "framework7";
-    import {
-        f7,
-        App,
-        View,
-        Panel,
-        Page,
-        Navbar,
-        BlockTitle,
-        Link,
-        Block,
-        List,
-        ListItem,
-        theme,
-    } from "framework7-svelte";
+    import { App, View } from "framework7-svelte";
     import Nav from "./ui/navbar.svelte";
     import RightPanel from "./ui/right-panel.svelte";
     import routes from "../js/routes";
     import store from "../js/store";
+    import { getLoggedInUser } from "../js/services/parse/auth.services";
 
     let f7params = {
         name: "AMMS",

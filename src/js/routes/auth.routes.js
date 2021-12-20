@@ -33,7 +33,7 @@ const authRoutes = [
     },
     
     {
-        path: '/emailverify',
+        path: '/emailverify/apps/:appid/verify_email',
         component: EmailVerifyPage,
     }
 ]

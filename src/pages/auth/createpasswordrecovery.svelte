@@ -10,7 +10,7 @@
         Block,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { createRecovery } from "../../js/services/auth.services";
+    import { createRecovery } from "../../js/services/appwrite/auth.services";
     import store from "../../js/store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";

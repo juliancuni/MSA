@@ -11,7 +11,7 @@
     import store from "../../js/store";
     import { lcl, locales, locale } from "../../js/i18n";
 
-    import { logout } from "../../js/services/auth.services";
+    import { logout } from "../../js/services/parse/auth.services";
 
     $: isAuthenticated = useStore(
         "authenticated",
@@ -19,8 +19,7 @@
     );
     const logoutUser = async () => {
         f7.progressbar.show();
-        const sessionId = localStorage.getItem("sessionId");
-        const loggedOut = await logout(sessionId);
+        const loggedOut = await logout();
         store.dispatch("logoutUser");
         f7.views.main.router.navigate("/");
         f7.progressbar.hide();

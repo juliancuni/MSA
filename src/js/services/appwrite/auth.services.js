@@ -1,7 +1,7 @@
 import { f7 } from 'framework7-svelte';
 import { appwriteSdk } from './appwrite.sdk';
-import { localeString as locale } from "../i18n";
-import translations from '../i18n/translations'
+import { localeString as locale } from "../../i18n";
+import translations from '../../i18n/translations'
 
 const alerts = translations[locale].ui.alerts;
 

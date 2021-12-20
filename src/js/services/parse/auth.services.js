@@ -5,10 +5,10 @@ import Parse from "./parse.sdk";
 
 export const login = async (username, password) => {
     try {
-        const user = await Parse.User.logIn(username, password);
-        console.log(user);
+        return await Parse.User.logIn(username, password);
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Login Deshtoi");
+        return null;
     }
 }
 
@@ -36,10 +36,21 @@ export const logout = async () => {
 
 export const getLoggedInUser = async () => {
     try {
-        const u = await Parse.User.current();
-        console.log(u)
+        const user = await Parse.User.current();
+        return user;
+    } catch (error) {
+        return null;
+    }
+}
+
+export const verifyEmail = async (link) => {
+    try {
+        const res = await fetch(link);
+        console.log(res)
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 }
 

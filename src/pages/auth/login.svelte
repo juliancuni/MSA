@@ -7,17 +7,22 @@
         ListInput,
         Button,
         ListButton,
+        useStore,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { login, getLoggedInUser } from "../../js/services/auth.services";
+    // import { login, getLoggedInUser } from "../../js/services/appwrite/auth.services";
+    import {
+        login,
+        getLoggedInUser,
+    } from "../../js/services/parse/auth.services";
     import store from "../../js/store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
     export let f7router;
     export let f7route;
 
-    let fields = { email: "", password: "" };
-    let errors = { email: "", password: "" };
+    let fields = { username: "juliancuni@gmail.com", password: "123456789Aa" };
+    let errors = { username: "", password: "" };
     let isFormValid = false;
 
     $: loginpage = $t("login");
@@ -25,15 +30,18 @@
 
     const loginUser = async () => {
         isFormValid = true;
-        if (!validation.inputEmpty(fields.email)) {
-            errors.email = ui.validation.inputbosh;
-            isFormValid = false;
-        } else if (!validation.emailFormat(fields.email)) {
-            errors.email = ui.validation.emailFormat;
+        if (!validation.inputEmpty(fields.username)) {
+            errors.username = ui.validation.inputbosh;
             isFormValid = false;
         } else {
-            errors.email = "";
+            errors.username = "";
         }
+        // else if (!validation.emailFormat(fields.email)) {
+        //     errors.email = ui.validation.emailFormat;
+        //     isFormValid = false;
+        // } else {
+        //     errors.email = "";
+        // }
         if (!validation.inputEmpty(fields.password)) {
             errors.password = ui.validation.inputbosh;
             isFormValid = false;
@@ -45,18 +53,18 @@
         }
         if (isFormValid) {
             f7.progressbar.show();
-            const session = await login(fields.email, fields.password);
-            if (session) {
+            const user = await login(fields.username, fields.password);
+            if (user) {
                 f7.loginScreen.close();
-                const user = await getLoggedInUser();
-                if (user) {
-                    store.dispatch("loginUser", user);
-                    f7router.navigate("/app/dashboard");
-                }
+                store.dispatch("loginUser", user.attributes);
+                console.log(user.attributes)
+                f7router.navigate("/app/dashboard");
             }
             f7.progressbar.hide();
         }
     };
+
+    $: userLoggedin = useStore("loggedInUser", (val) => (userLoggedin = val));
 
     const handleKeydown = (e) => {
         if (e.keyCode === 13) {
@@ -69,16 +77,17 @@
 
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
+    <pre>{JSON.stringify(userLoggedin)}</pre>
     <List form>
         <ListInput
             label={ui.input.email.label}
-            type="email"
-            name="email"
+            type="text"
+            name="username"
             placeholder={ui.input.email.placeholder}
-            value={fields.email}
-            onInput={(e) => (fields.email = e.target.value)}
-            errorMessageForce={errors.email}
-            errorMessage={errors.email}
+            value={fields.username}
+            onInput={(e) => (fields.username = e.target.value)}
+            errorMessageForce={errors.username}
+            errorMessage={errors.username}
         />
         <ListInput
             label={ui.input.fjalekalimi.label}

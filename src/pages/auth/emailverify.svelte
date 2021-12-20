@@ -1,63 +1,58 @@
 <script>
     import { f7, Page, Block, BlockTitle, Link } from "framework7-svelte";
     import { onMount } from "svelte";
-    import {
-        logout,
-        updateVerification,
-    } from "../../js/services/auth.services";
+    import { verifyEmail } from "../../js/services/parse/auth.services";
     import store from "../../js/store";
     import { t } from "../../js/i18n";
     export let f7route;
     export let f7router;
 
-    const userId = f7route.query.userId;
-    const secret = f7route.query.secret;
-    const expire = f7route.query.expire;
+    const appId = f7route.params.appid;
+    const token = f7route.query.token;
+    const username = f7route.query.username;
+    const verificationLink =
+        import.meta.env.VITE_PARSE_ENDPOINT +
+        "/apps/" +
+        appId +
+        "/verify_email?token=" +
+        token +
+        "&username=" +
+        username;
+    let response = false;
 
-    let token = null;
-
-    let isExpired = false;
-    let isParamGabim = false;
     onMount(async () => {
-        if (parseInt(expire) * 1000 < Date.now()) {
-            isExpired = true;
+        if (!appId || !token) {
             f7.dialog.alert(
-                "Verification Link expired",
-                "Email Verification Failed!"
-            );
-        } else if (!userId || !secret) {
-            isParamGabim = true;
-            f7.dialog.alert(
-                "UserId or Secret Missing<br>Check your link and try again",
-                "Wrong Params"
+                "Link i parregullt.<br>Kontrolloni Linkun ne email dhe provoni serish",
+                "Gabim!"
             );
         } else {
-            token = await updateVerification(userId, secret);
-            if (token) {
-                if (localStorage.getItem("sessionId")) {
-                    await logout(localStorage.getItem("sessionId"));
-                    store.dispatch("logoutUser");
-                }
-            }
+            response = await verifyEmail(verificationLink);
+            // token = await updateVerification(userId, secret);
+            // if (token) {
+            //     if (localStorage.getItem("sessionId")) {
+            //         await logout(localStorage.getItem("sessionId"));
+            //         store.dispatch("logoutUser");
+            //     }
+            // }
         }
     });
 </script>
 
 <Page class="grid-demo">
     <Block strong inset>
-        {#if userId || secret}
-            {#if token}
-                <BlockTitle>Email Verification Succeded!</BlockTitle>
+        {#if appId || token}
+            {#if response}
+                <BlockTitle>Email u verifikua me sukses!</BlockTitle>
             {:else}
                 <BlockTitle
-                    >Failure! Check your email or ask for another verification
-                    email.</BlockTitle
+                    >Deshtim! Ridergo nje email tjeter konfirmimi.</BlockTitle
                 >
             {/if}
         {:else}
             <BlockTitle>No UserId or Secret</BlockTitle>
         {/if}
-        <Link href="/auth/login">Go To Login</Link>
+        <Link href="/auth/login">Login</Link>
         <!-- <Button fill>Login</Button> -->
     </Block>
 </Page>

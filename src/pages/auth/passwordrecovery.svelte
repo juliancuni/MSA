@@ -10,7 +10,7 @@
         Block,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { updatePasswordRecovery } from "../../js/services/auth.services";
+    import { updatePasswordRecovery } from "../../js/services/appwrite/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
 

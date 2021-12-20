@@ -14,7 +14,7 @@
         logout,
         register,
         createVerification,
-    } from "../../js/services/auth.services";
+    } from "../../js/services/appwrite/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
     export let f7router;
