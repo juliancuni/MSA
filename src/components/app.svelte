@@ -30,7 +30,6 @@
         class="safe-areas view-main view-init"
         url="/"
         browserHistory={true}
-        browserHistorySeparator=""
     >
         <!-- RightPanel -->
         <RightPanel />
