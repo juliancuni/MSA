@@ -16,7 +16,7 @@
     import { getLoggedInUser } from "../js/services/parse/auth.services";
 
     let f7params = {
-        name: "AMMS",
+        name: "AMMS-a",
         theme: "auto",
         store: store,
         routes: routes,
