@@ -71,6 +71,10 @@ export default {
           titulli: "Email Verification",
           mesazhi: "We've sent a verification link in your mail. Please check your email and follow the instructions there to activate your account.",
         },
+        krijoPasswordReset: {
+          titulli: "Recover Password",
+          mesazhi: "We've sent a message to your mail with the instructions how to reset your password.",
+        },
         verifikim: {
           titulli: "Email Verification Failed",
           mesazhi: ""
@@ -172,7 +176,11 @@ export default {
         },
         krijoVerifikimSukses: {
           titulli: "Emaili i verifikimit",
-          mesazhi: "Në adresën tuaj ë emailit<br> dërguam linkun e konfirmimit. <br>Hapni adresën dhe ndiqni udhezimet për të aktivizuar llogarinë që sapo krijuat.",
+          mesazhi: "Në adresën tuaj të emailit<br> dërguam linkun e konfirmimit. <br>Hapni adresën dhe ndiqni udhezimet për të aktivizuar llogarinë që sapo krijuat.",
+        },
+        krijoPasswordReset: {
+          titulli: "Rikupero Fjalëkalimin",
+          mesazhi: "Në adresën tuaj të emailit<br> dërguam udhezimet për të rikuperuar fjalëkalimin.",
         },
         verifikim: {
           titulli: "Verifikimi i Email Dështoi",

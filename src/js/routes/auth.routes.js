@@ -3,6 +3,8 @@ import RegisterPage from '../../pages/auth/register.svelte';
 import CreateRecoveryPassPage from '../../pages/auth/createpasswordrecovery.svelte';
 import UpdateRecoveryPassPage from '../../pages/auth/passwordrecovery.svelte';
 import EmailVerifiedPage from '../../pages/auth/emailverified.svelte';
+import InvalidLink from '../../pages/auth/invalidlink.svelte';
+import ResetPassSuccess from '../../pages/auth/resetpasswordsuccess.svelte';
 
 import { unAuthGuard } from './guards/unauth.guard';
 
@@ -31,10 +33,17 @@ const authRoutes = [
             unAuthGuard(resolve, reject, UpdateRecoveryPassPage);
         }
     },
-
     {
         path: '/emailverified',
         component: EmailVerifiedPage,
+    },
+    {
+        path: '/invalidlink',
+        component: InvalidLink,
+    },
+    {
+        path: 'resetpasswordsuccess',
+        component: ResetPassSuccess
     }
 ]
 
