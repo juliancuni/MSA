@@ -50,7 +50,6 @@
             if (user) {
                 f7.loginScreen.close();
                 store.dispatch("loginUser", user.attributes);
-                console.log(user.attributes);
                 f7router.navigate("/app/dashboard");
             }
             f7.progressbar.hide();

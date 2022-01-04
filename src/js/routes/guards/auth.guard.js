@@ -1,6 +1,7 @@
 import { f7 } from 'framework7-svelte';
 import store from '../../store';
-import { createVerification } from '../../services/appwrite/auth.services';
+// import { createVerification } from '../../services/appwrite/auth.services';
+import { createEmailVerification } from '../../services/parse/auth.services';
 import { logout } from '../../services/parse/auth.services';
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
@@ -22,7 +23,7 @@ export const authGuard = (resolve, reject, component) => {
                         text: alerts.emailJoIVerifikuar.action,
                         color: 'green',
                         onClick: async () => {
-                            await createVerification()
+                            await createEmailVerification(user.value.email)
                             await logout()
                             store.dispatch("logoutUser");
                         }

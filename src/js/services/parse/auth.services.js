@@ -4,6 +4,7 @@ import { localeString as locale } from "../../i18n";
 
 import translations from '../../i18n/translations'
 const alerts = translations[locale].ui.alerts;
+const auth = translations[locale].auth;
 
 // const UserSdk = new Parse.User();
 
@@ -11,7 +12,24 @@ export const login = async (username, password) => {
     try {
         return await Parse.User.logIn(username, password);
     } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Login Deshtoi");
+        if (error.message.includes("multiple failed login")) {
+            f7.dialog.create({
+                title: "Llogaria u bllokua",
+                text: error.message,
+                buttons: [
+                    {
+                        text: auth.links.rikupero,
+                        color: 'green',
+                        onClick: async () => {
+                            f7.views.main.router.navigate("/auth/createpasswordrecovery")
+                        }
+                    },
+                    { text: "Cancel" }
+                ]
+            }).open()
+        } else {
+            f7.dialog.alert(`${error.code}: ${error.message}`, "Login Deshtoi");
+        }
         return null;
     }
 }
@@ -32,10 +50,21 @@ export const register = async (name, email, username, password) => {
     }
 }
 
+export const createEmailVerification = async (email) => {
+    try {
+        const user = await Parse.User.requestEmailVerification(email); 
+        if (user) {
+            f7.dialog.alert(alerts.krijoVerifikimSukses.mesazhi, alerts.krijoVerifikimSukses.titulli);
+        }
+    } catch (error) {
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+    }
+
+}
+
 export const logout = async () => {
     try {
         const u = await Parse.User.logOut();
-        console.log(u)
     } catch (error) {
         console.log(error);
     }
