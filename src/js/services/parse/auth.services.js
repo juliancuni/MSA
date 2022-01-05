@@ -69,6 +69,15 @@ export const logout = async () => {
     }
 }
 
+export const getLocalStorageUser = () => {
+    const userLocal = localStorage.getItem(`Parse/${import.meta.env.VITE_PARSE_APPID}/currentUser`);
+    if (userLocal) {
+        return true;
+    } else {
+        return false
+    }
+}
+
 export const getLoggedInUser = async () => {
     try {
         const user = await Parse.User.current();
@@ -88,18 +97,3 @@ export const requestPassRecovery = async (email) => {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
     }
 }
-
-// export const passwordReset = async (token, username, password, passwordRepeat, appid) => {
-//     const url = `${import.meta.env.VITE_PARSE_ENDPOINT}/apps/${appid}/request_password_reset`;
-//     const formData = new FormData();
-//     formData.append('token', token);
-//     formData.append('username', username);
-//     formData.append('password', password);
-//     // formData.append('confirm_new_password', passwordRepeat);
-//     try {
-//         const res = await axios.post(url, formData)
-//         console.log(res);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }

@@ -17,6 +17,7 @@
         "authenticated",
         (authenticated) => (isAuthenticated = authenticated)
     );
+    $: user = useStore("loggedInUser", (val) => (user = val));
     const logoutUser = async () => {
         f7.progressbar.show();
         const loggedOut = await logout();

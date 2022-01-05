@@ -9,9 +9,10 @@ const alerts = translations[locale].ui.alerts;
 const isAuthenticated = store.getters.authenticated;
 const user = store.getters.loggedInUser;
 
-export const authGuard = (resolve, reject, component) => {
+export const authGuard = async (resolve, reject, component) => {
+    await store.dispatch("checkAuthentication");
     if (isAuthenticated.value) {
-        if (user?.value?.emailVerified) {
+        if (user && user?.value?.emailVerified) {
             return resolve({ component })
         } else {
             f7.dialog.create({

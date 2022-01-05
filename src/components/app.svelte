@@ -1,12 +1,3 @@
-<script context="module">
-    const user = getLoggedInUser();
-    user.then((val) => {
-        if (val) {
-            store.dispatch("loginUser", val?.attributes);
-        }
-    }).catch((err) => console.log(err));
-</script>
-
 <script>
     import { onMount } from "svelte";
     import { f7, f7ready, App, View } from "framework7-svelte";
@@ -14,7 +5,7 @@
     import RightPanel from "./ui/left-panel.svelte";
     import routes from "../js/routes";
     import store from "../js/store";
-    import { getLoggedInUser } from "../js/services/parse/auth.services";
+    // import { getLoggedInUser } from "../js/services/parse/auth.services";
 
     let f7params = {
         name: "AMMS-a",
@@ -24,10 +15,9 @@
     };
 
     onMount(() => {
-        f7ready(() => {
+        f7ready(async () => {
             // Call F7 APIs here
             // const device = f7.device;
-            // console.log(device);
             // f7.panel.open("left");
             // f7.panel.close("left");
             // f7.dialog.alert(JSON.stringify(device), "Device");

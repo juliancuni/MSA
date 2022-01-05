@@ -1,6 +1,6 @@
 
 import { createStore } from 'framework7/lite';
-import { getLoggedInUser } from '../js/services/parse/auth.services';
+import { getLocalStorageUser, getLoggedInUser } from '../js/services/parse/auth.services';
 
 const store = createStore({
     state: {
@@ -17,8 +17,11 @@ const store = createStore({
     },
     actions: {
         async checkAuthentication({ state }) {
-            if (await getLoggedInUser()) {
+            if (getLocalStorageUser()) {
                 state.isAuthenticated = true;
+                getLoggedInUser().then((user) => {
+                    state.loggedInUser = user.attributes;
+                })
             } else {
                 state.isAuthenticated = false;
                 state.loggedInUser = null;

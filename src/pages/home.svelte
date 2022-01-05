@@ -1,9 +1,3 @@
-<script context="module">
-    import store from "../js/store";
-    import { t } from "../js/i18n";
-    store.dispatch("checkAuthentication");
-</script>
-
 <script>
     import {
         Page,
@@ -12,6 +6,8 @@
         BlockTitle,
         Button,
     } from "framework7-svelte";
+    import { t } from "../js/i18n";
+
     let user = useStore("loggedInUser", (data) => (user = data));
     export let f7route;
     export let f7router;

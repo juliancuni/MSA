@@ -82,7 +82,6 @@
                 fields.password
             );
             if (user) {
-                console.log(user);
                 await logout();
                 store.dispatch("logoutUser");
                 f7router.navigate("/auth/login");
