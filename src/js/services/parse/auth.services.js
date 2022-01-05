@@ -69,15 +69,6 @@ export const logout = async () => {
     }
 }
 
-export const getLocalStorageUser = () => {
-    const userLocal = localStorage.getItem(`Parse/${import.meta.env.VITE_PARSE_APPID}/currentUser`);
-    if (userLocal) {
-        return true;
-    } else {
-        return false
-    }
-}
-
 export const getLoggedInUser = async () => {
     try {
         const user = await Parse.User.current();
