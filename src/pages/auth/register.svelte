@@ -90,14 +90,14 @@
             f7.progressbar.hide();
         }
     };
-    const handleKeydown = (e) => {
-        if (e.keyCode === 13) {
-            registerUser();
-        }
-    };
+    // const handleKeydown = (e) => {
+    //     if (e.keyCode === 13) {
+    //         registerUser();
+    //     }
+    // };
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<!-- <svelte:window on:keydown={handleKeydown} /> -->
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{registerpage.titulli}</LoginScreenTitle>
     <List form>

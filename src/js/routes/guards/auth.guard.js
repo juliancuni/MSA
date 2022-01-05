@@ -1,6 +1,5 @@
 import { f7 } from 'framework7-svelte';
 import store from '../../store';
-// import { createVerification } from '../../services/appwrite/auth.services';
 import { createEmailVerification } from '../../services/parse/auth.services';
 import { logout } from '../../services/parse/auth.services';
 import { localeString as locale } from "../../i18n";

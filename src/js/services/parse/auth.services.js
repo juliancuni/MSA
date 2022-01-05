@@ -2,7 +2,6 @@ import { f7 } from 'framework7-svelte';
 import Parse from "./parse.sdk";
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
-import axios from 'axios';
 const alerts = translations[locale].ui.alerts;
 const auth = translations[locale].auth;
 
@@ -90,17 +89,17 @@ export const requestPassRecovery = async (email) => {
     }
 }
 
-export const passwordReset = async (token, username, password, passwordRepeat, appid) => {
-    const url = `${import.meta.env.VITE_PARSE_ENDPOINT}/apps/${appid}/request_password_reset`;
-    const formData = new FormData();
-    formData.append('token', token);
-    formData.append('username', username);
-    formData.append('password', password);
-    // formData.append('confirm_new_password', passwordRepeat);
-    try {
-        const res = await axios.post(url, formData)
-        console.log(res);
-    } catch (error) {
-        console.log(error);
-    }
-}
+// export const passwordReset = async (token, username, password, passwordRepeat, appid) => {
+//     const url = `${import.meta.env.VITE_PARSE_ENDPOINT}/apps/${appid}/request_password_reset`;
+//     const formData = new FormData();
+//     formData.append('token', token);
+//     formData.append('username', username);
+//     formData.append('password', password);
+//     // formData.append('confirm_new_password', passwordRepeat);
+//     try {
+//         const res = await axios.post(url, formData)
+//         console.log(res);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }

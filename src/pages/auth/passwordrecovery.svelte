@@ -11,8 +11,6 @@
         Icon,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    // import { updatePasswordRecovery } from "../../js/services/appwrite/auth.services";
-    import { passwordReset } from "../../js/services/parse/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
 
@@ -29,61 +27,61 @@
     const server_token = f7route.query.token;
     const appid = f7route.query.id;
     const username = f7route.query.username;
-    const resetPassword = async () => {
-        isFormValid = true;
-        if (!validation.inputEmpty(fields.password)) {
-            errors.password = ui.validation.inputbosh;
-            isFormValid = false;
-        } else if (!validation.passwordShort(fields.password)) {
-            errors.password = ui.validation.fjalekalimiShkurter;
-            isFormValid = false;
-        } else {
-            errors.password = "";
-        }
-        if (!validation.inputEmpty(fields.passwordRepeat)) {
-            errors.passwordRepeat = ui.validation.inputbosh;
-            isFormValid = false;
-        } else if (fields.password !== fields.passwordRepeat) {
-            errors.passwordRepeat = ui.validation.fjalekalimetNukPerputhen;
-            isFormValid = false;
-        } else {
-            errors.passwordRepeat = "";
-        }
-        if (isFormValid) {
-            f7.progressbar.show();
+    // const resetPassword = async () => {
+    //     isFormValid = true;
+    //     if (!validation.inputEmpty(fields.password)) {
+    //         errors.password = ui.validation.inputbosh;
+    //         isFormValid = false;
+    //     } else if (!validation.passwordShort(fields.password)) {
+    //         errors.password = ui.validation.fjalekalimiShkurter;
+    //         isFormValid = false;
+    //     } else {
+    //         errors.password = "";
+    //     }
+    //     if (!validation.inputEmpty(fields.passwordRepeat)) {
+    //         errors.passwordRepeat = ui.validation.inputbosh;
+    //         isFormValid = false;
+    //     } else if (fields.password !== fields.passwordRepeat) {
+    //         errors.passwordRepeat = ui.validation.fjalekalimetNukPerputhen;
+    //         isFormValid = false;
+    //     } else {
+    //         errors.passwordRepeat = "";
+    //     }
+    //     if (isFormValid) {
+    //         f7.progressbar.show();
 
-            if (parseInt(appid) * 1000 < Date.now()) {
-                f7.dialog.alert(
-                    ui.alerts.rikuperoFailExpired.mesazhi,
-                    ui.alerts.rikuperoFailExpired.titulli
-                );
-            } else if (!username || !server_token) {
-                f7.dialog.alert(
-                    ui.alerts.rikuperoFailParams.mesazhi,
-                    ui.alerts.rikuperoFailParams.titulli
-                );
-            } else {
-                const token = await passwordReset(
-                    server_token,
-                    username,
-                    fields.password,
-                    fields.passwordRepeat,
-                    appid
-                );
-                if (token) {
-                    //TODO Translations
-                    f7.dialog.alert(
-                        ui.alerts.rikuperoSukses.mesazhi,
-                        ui.alerts.rikuperoSukses.titulli,
-                        () => {
-                            f7router.navigate("/auth/login");
-                        }
-                    );
-                }
-            }
-            f7.progressbar.hide();
-        }
-    };
+    //         if (parseInt(appid) * 1000 < Date.now()) {
+    //             f7.dialog.alert(
+    //                 ui.alerts.rikuperoFailExpired.mesazhi,
+    //                 ui.alerts.rikuperoFailExpired.titulli
+    //             );
+    //         } else if (!username || !server_token) {
+    //             f7.dialog.alert(
+    //                 ui.alerts.rikuperoFailParams.mesazhi,
+    //                 ui.alerts.rikuperoFailParams.titulli
+    //             );
+    //         } else {
+    //             const token = await passwordReset(
+    //                 server_token,
+    //                 username,
+    //                 fields.password,
+    //                 fields.passwordRepeat,
+    //                 appid
+    //             );
+    //             if (token) {
+    //                 //TODO Translations
+    //                 f7.dialog.alert(
+    //                     ui.alerts.rikuperoSukses.mesazhi,
+    //                     ui.alerts.rikuperoSukses.titulli,
+    //                     () => {
+    //                         f7router.navigate("/auth/login");
+    //                     }
+    //                 );
+    //             }
+    //         }
+    //         f7.progressbar.hide();
+    //     }
+    // };
 
     window.onload = function () {
         var urlParams = {};

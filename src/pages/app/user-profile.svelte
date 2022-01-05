@@ -24,7 +24,7 @@
             <Col width="100" medium="50">
                 <List noHairlinesMd>
                     <ListInput
-                        label="Full Name"
+                        label="Emri i plotë"
                         type="text"
                         placeholder="Your name"
                         clearButton

@@ -20,7 +20,7 @@
         .join("");
 </script>
 
-<Panel left reveal themeDark visibleBreakpoint={1280}>
+<Panel left reveal themeDark>
     <Page>
         <PageContent>
             <Navbar>
