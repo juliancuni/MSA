@@ -10,17 +10,18 @@
         Link,
         PageContent,
         Chip,
-        useStore,
     } from "framework7-svelte";
+    import loggedInUser from '../../js/stores/user.store'
 
-    let user = useStore("loggedInUser", (val) => (user = val));
-    $: nameInitials = user?.name
-        .split(" ")
-        .map((n) => n[0])
-        .join("");
+    $: nameInitials = $loggedInUser?.emriIPlote
+        ? $loggedInUser.emriIPlote
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+        : null;
 </script>
 
-<Panel left reveal themeDark>
+<Panel left reveal themeDark visibleBreakpoint={1024}>
     <Page>
         <PageContent>
             <Navbar>
@@ -29,11 +30,11 @@
                 </NavTitle>
                 <p>Main Nav</p>
             </Navbar>
-            {#if user}
+            {#if $loggedInUser && nameInitials}
                 <Block strong>
                     <Link href="/app/userprofile" panelClose>
                         <Chip
-                            text={user?.name}
+                            text={loggedInUser?.emriIPlote}
                             mediaBgColor="pink"
                             media={nameInitials}
                         />

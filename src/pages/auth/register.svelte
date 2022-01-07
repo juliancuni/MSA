@@ -17,6 +17,8 @@
 
     export let f7router;
     export let f7route;
+    f7router;
+    f7route;
 
     let fields = {
         fullName: import.meta.env.VITE_FULLNAME,

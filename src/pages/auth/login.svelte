@@ -1,21 +1,20 @@
 <script>
     import {
-        f7,
         Page,
         LoginScreenTitle,
         List,
         ListInput,
         Button,
         ListButton,
-        useStore,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { login } from "../../js/services/parse/auth.services";
-    import store from "../../js/store";
+    import loggedInUser, { loginUser } from "../../js/stores/user.store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
     export let f7router;
     export let f7route;
+    f7router;
+    f7route;
 
     let fields = {
         username: import.meta.env.VITE_USERNAME,
@@ -27,7 +26,7 @@
     $: loginpage = $t("login");
     $: ui = $t("ui");
 
-    const loginUser = async () => {
+    const login = async () => {
         isFormValid = true;
         if (!validation.inputEmpty(fields.username)) {
             errors.username = ui.validation.inputbosh;
@@ -45,28 +44,12 @@
             errors.password = "";
         }
         if (isFormValid) {
-            f7.progressbar.show();
-            const user = await login(fields.username, fields.password);
-            if (user) {
-                f7.loginScreen.close();
-                store.dispatch("loginUser", user.attributes);
-                f7router.navigate("/app/dashboard");
-            }
-            f7.progressbar.hide();
+            await loginUser(fields.username, fields.password);
         }
     };
-
-    $: userLoggedin = useStore("loggedInUser", (val) => (userLoggedin = val));
-
-    // const handleKeydown = (e) => {
-    //     if (e.keyCode === 13) {
-    //         loginUser();
-    //     }
-    // };
 </script>
 
 <!-- <svelte:window on:keydown={handleKeydown} /> -->
-
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{loginpage.titulli}</LoginScreenTitle>
     <List form>
@@ -92,7 +75,7 @@
         />
     </List>
     <List>
-        <Button raised onClick={loginUser}>{loginpage.button}</Button>
+        <Button raised onClick={login}>{loginpage.button}</Button>
         <ListButton color="green" href="/auth/register"
             >{ui.button.regjistro}</ListButton
         >

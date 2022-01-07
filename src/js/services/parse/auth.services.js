@@ -8,8 +8,11 @@ const auth = translations[locale].auth;
 // const UserSdk = new Parse.User();
 
 export const login = async (username, password) => {
+    f7.progressbar.show();
     try {
-        return await Parse.User.logIn(username, password);
+        const user = await Parse.User.logIn(username, password);
+        f7.progressbar.hide();
+        return user;
     } catch (error) {
         if (error.message.includes("multiple failed login")) {
             f7.dialog.create({
@@ -29,6 +32,7 @@ export const login = async (username, password) => {
         } else {
             f7.dialog.alert(`${error.code}: ${error.message}`, "Login Deshtoi");
         }
+        f7.progressbar.hide();
         return null;
     }
 }

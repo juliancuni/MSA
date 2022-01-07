@@ -1,18 +1,17 @@
 import { f7 } from 'framework7-svelte';
-import store from '../../store';
-import { createEmailVerification } from '../../services/parse/auth.services';
+import { checkAuthentication } from '../../stores/user.store';
+import { createEmailVerification, getLoggedInUser } from '../../services/parse/auth.services';
 import { logout } from '../../services/parse/auth.services';
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
 
 const alerts = translations[locale].ui.alerts;
-const isAuthenticated = store.getters.authenticated;
-const user = store.getters.loggedInUser;
 
 export const authGuard = async (resolve, reject, component) => {
-    await store.dispatch("checkAuthentication");
-    if (isAuthenticated.value) {
-        if (user && user?.value?.emailVerified) {
+    await checkAuthentication();
+    let user = await getLoggedInUser(); 
+    if (user) {
+        if (user.attributes?.emailVerified) {
             return resolve({ component })
         } else {
             f7.dialog.create({
@@ -23,7 +22,7 @@ export const authGuard = async (resolve, reject, component) => {
                         text: alerts.emailJoIVerifikuar.action,
                         color: 'green',
                         onClick: async () => {
-                            await createEmailVerification(user.value.email)
+                            await createEmailVerification(user.attributes.email)
                             await logout()
                             store.dispatch("logoutUser");
                         }

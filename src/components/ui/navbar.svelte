@@ -5,29 +5,22 @@
         NavRight,
         NavLeft,
         Link,
-        useStore,
     } from "framework7-svelte";
 
-    import store from "../../js/store";
     import { lcl, locales, locale } from "../../js/i18n";
+    import loggedInUser, { logoutUser } from "../../js/stores/user.store";
 
-    import { logout } from "../../js/services/parse/auth.services";
-
-    $: isAuthenticated = useStore(
-        "authenticated",
-        (authenticated) => (isAuthenticated = authenticated)
-    );
-    $: user = useStore("loggedInUser", (val) => (user = val));
-    const logoutUser = async () => {
-        f7.progressbar.show();
-        const loggedOut = await logout();
-        store.dispatch("logoutUser");
-        f7.views.main.router.navigate("/");
-        f7.progressbar.hide();
-    };
     const setLang = () => {
         f7.smartSelect.get(".smart-select").close();
         locale.set($lcl);
+    };
+    let profileDropdown = null;
+    const profileMan = async () => {
+        if (profileDropdown === "0") {
+            await logoutUser();
+        } else {
+            f7.views.main.router.navigate("/app/userprofile");
+        }
     };
 </script>
 
@@ -40,25 +33,32 @@
             panelOpen="left"
         />
     </NavLeft>
-    <!-- <NavLeft>
-        <Link href="/app/dashboard">Dashboard</Link>
-    </NavLeft> -->
     <NavRight>
         <Link
+            iconMaterial="translate"
             smartSelect
             smartSelectParams={{ openIn: "popover" }}
             class="smart-select"
         >
-            {$locale}
+            <!-- {$locale} -->
             <select bind:value={$lcl} on:change={setLang}>
                 {#each locales as l}
                     <option value={l}>{l}</option>
                 {/each}
             </select>
         </Link>
-        <Link href="/about">About</Link>
-        {#if isAuthenticated}
-            <Link href="" onClick={logoutUser}>Logout</Link>
+        {#if $loggedInUser}
+            <Link
+                smartSelect
+                iconMaterial="person"
+                smartSelectParams={{ openIn: "popover", closeOnSelect: true }}
+                class="smart-select"
+            >
+                <select bind:value={profileDropdown} on:change={profileMan}>
+                    <option value="0">Logout</option>
+                    <option value="1">Profile</option>
+                </select>
+            </Link>
         {:else}
             <Link href="/auth/login">Login</Link>
         {/if}

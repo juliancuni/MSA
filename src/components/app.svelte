@@ -5,7 +5,6 @@
     import RightPanel from "./ui/left-panel.svelte";
     import routes from "../js/routes";
     import store from "../js/store";
-    // import { getLoggedInUser } from "../js/services/parse/auth.services";
 
     let f7params = {
         name: "AMMS-a",
