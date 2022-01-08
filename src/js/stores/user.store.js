@@ -1,6 +1,6 @@
 import { f7 } from 'framework7-svelte';
 import { writable } from 'svelte/store';
-import { getLoggedInUser, login, logout, register, changePassword } from '../services/parse/auth.services';
+import { getLoggedInUser, login, logout, register, changePassword, changeUsername, changeEmail } from '../services/parse/auth.services';
 import { createLoggedInUserProfile, getLoggedInUserProfile } from './user-profile.store';
 import clearAllStores from './utils/clear-all.stores';
 
@@ -39,7 +39,17 @@ export const registerUser = async (fullname, email, username, password) => {
 
 export const changeUserPassword = async (username, oldPassword, newPassword) => {
     const res = await changePassword(username, oldPassword, newPassword);
-    if(res) logoutUser();
+    if (res) logoutUser();
+}
+
+export const changeUserUserName = async (username) => {
+    const res = await changeUsername(username);
+    if (res) logoutUser();
+}
+
+export const changeUserEmail = async (email) => {
+    const res = await changeEmail(email);
+    if (res) logoutUser();
 }
 
 export default loggedInUser;

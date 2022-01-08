@@ -5,15 +5,16 @@
     import RightPanel from "./ui/left-panel.svelte";
     import routes from "../js/routes";
     import store from "../js/store";
-
+    import { checkAuthentication } from "../js/stores/user.store";
     let f7params = {
-        name: "AMMS-a",
+        name: "AMMS",
         theme: "aurora",
         store: store,
         routes: routes,
     };
 
-    onMount(() => {
+    onMount(async () => {
+        await checkAuthentication();
         f7ready(async () => {
             // Call F7 APIs here
             // const device = f7.device;

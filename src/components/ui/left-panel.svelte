@@ -28,7 +28,7 @@
                 <NavTitle>
                     <Link noLinkClass href="/" color="white">{f7.name}</Link>
                 </NavTitle>
-                <p>Main Nav</p>
+                <!-- <p>Main Nav</p> -->
             </Navbar>
             {#if $userProfile}
                 <Block strong>

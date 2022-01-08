@@ -4,7 +4,7 @@
     export let label;
     export let lista;
     export let placeholder;
-    export let value;
+    export let value = "";
 
     onMount(() => {
         f7.autocomplete.create({

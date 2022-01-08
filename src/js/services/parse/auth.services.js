@@ -71,7 +71,7 @@ export const logout = async () => {
     try {
         const u = await Parse.User.logOut();
     } catch (error) {
-        console.log(error);
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
     }
 }
 
@@ -107,6 +107,33 @@ export const changePassword = async (username, oldPassword, newPassword) => {
             return updatedUser;
         }
         return null;
+    } catch (error) {
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        return null;
+    }
+}
+
+export const changeUsername = async (username) => {
+    const user = Parse.User.current();
+    user.setUsername(username)
+    try {
+        const updatedUser = await user.save();
+        f7.dialog.alert(`Perdoruesi u ndryshua me sukses. Ju duhet te logoheni serish.`, "Sukses");
+        return updatedUser;
+    } catch (error) {
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        return null;
+    }
+
+}
+
+export const changeEmail = async (email) => {
+    const user = Parse.User.current();
+    user.setEmail(email)
+    try {
+        const updatedUser = await user.save();
+        f7.dialog.alert(`Email u ndryshua me sukses. Ju duhet te logoheni serish.`, "Sukses");
+        return updatedUser;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
         return null;

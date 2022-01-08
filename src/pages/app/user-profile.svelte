@@ -16,11 +16,16 @@
     import userProfile, {
         setLoggedInUserProfile,
     } from "../../js/stores/user-profile.store";
-    import { changeUserPassword } from "../../js/stores/user.store";
+    import {
+        changeUserPassword,
+        changeUserUserName,
+        changeUserEmail,
+    } from "../../js/stores/user.store";
     import { t } from "../../js/i18n";
     import ListInputAutoComplete from "../components/autocomplete.svelte";
     import { qytetetList } from "../components/utils/qytetet.list";
     import validation from "../../js/form-validation";
+    import { async } from "parse/lib/browser/StorageController.browser";
     export let f7router;
     export let f7route;
     f7router;
@@ -31,21 +36,27 @@
     maxYear = maxYear - 15;
     minYear = minYear.getFullYear();
     minYear = minYear - 70;
+
+    let profile = $userProfile.toJSON();
+
     let isFormValid = false;
     let userFields = {
+        username: profile.user.username,
+        email: profile.user.email,
         oldPassword: "",
         newPassword: "",
         newPasswordRepeat: "",
     };
     let userErrors = {
+        username: "",
+        email: "",
         oldPassword: "",
         newPassword: "",
         newPasswordRepeat: "",
     };
     $: ui = $t("ui");
 
-    let profile = $userProfile.toJSON();
-    let dl = [profile.datelindja.iso];
+    let dl = [profile.datelindja?.iso || new Date().setFullYear(maxYear)];
     const updateProfile = async () => {
         profile.datelindja = new Date(dl[0].toDateString());
         setLoggedInUserProfile(profile);
@@ -88,6 +99,34 @@
             );
         }
     };
+    const updateUsername = async () => {
+        isFormValid = true;
+        if (!validation.inputEmpty(userFields.username)) {
+            userErrors.username = ui.validation.inputbosh;
+            isFormValid = false;
+        } else {
+            userErrors.username = "";
+        }
+        if (isFormValid) {
+            await changeUserUserName(userFields.username);
+        }
+    };
+
+    const updateEmail = async () => {
+        isFormValid = true;
+        if (!validation.inputEmpty(userFields.email)) {
+            userErrors.email = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (!validation.emailFormat(userFields.email)) {
+            userErrors.email = ui.validation.emailFormat;
+            isFormValid = false;
+        } else {
+            userErrors.email = "";
+        }
+        if (isFormValid) {
+            await changeUserEmail(userFields.email);
+        }
+    };
 </script>
 
 <Page name="userprofile">
@@ -119,6 +158,7 @@
                             yearPickerMax: maxYear,
                             yearPickerMin: minYear,
                         }}
+                        clearButton
                         placeholder="Zgjidh..."
                         bind:value={dl}
                     />
@@ -126,6 +166,7 @@
                         label="Nr. Tel"
                         type="text"
                         placeholder="065 12 34 567"
+                        clearButton
                         bind:value={profile.tel}
                     />
                     <ListInput
@@ -151,22 +192,35 @@
                         label="Përdoruesi"
                         type="text"
                         placeholder="Username"
-                        disabled
-                        bind:value={profile.user.username}
+                        bind:value={userFields.username}
+                        errorMessageForce={userErrors.username}
+                        errorMessage={userErrors.username}
+                        clearButton
                     />
+                    <Button raised onClick={updateUsername}>
+                        Ndrysho Përdoruesin
+                    </Button>
+                </List>
+                <List>
                     <ListInput
                         label="Email"
                         type="text"
                         placeholder="email@domain.com"
-                        disabled
-                        bind:value={profile.user.email}
+                        bind:value={userFields.email}
+                        errorMessageForce={userErrors.email}
+                        errorMessage={userErrors.email}
+                        clearButton
                     />
+                </List>
+                <Button raised onClick={updateEmail}>Ndrysho Email</Button>
+                <List>
                     <ListInput
                         label="Fjalëkalimi aktual"
                         type="password"
                         bind:value={userFields.oldPassword}
                         errorMessageForce={userErrors.oldPassword}
                         errorMessage={userErrors.oldPassword}
+                        clearButton
                     />
                     <ListInput
                         label="Fjalëkalimi i ri"
@@ -174,6 +228,7 @@
                         bind:value={userFields.newPassword}
                         errorMessageForce={userErrors.newPassword}
                         errorMessage={userErrors.newPassword}
+                        clearButton
                     />
                     <ListInput
                         label="Përserite"
@@ -181,6 +236,7 @@
                         bind:value={userFields.newPasswordRepeat}
                         errorMessageForce={userErrors.newPasswordRepeat}
                         errorMessage={userErrors.newPasswordRepeat}
+                        clearButton
                     />
                 </List>
                 <Button raised onClick={updatePassword}

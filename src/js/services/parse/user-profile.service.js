@@ -18,7 +18,7 @@ export const get = async () => {
         return userProfile;
     } catch (error) {
         f7.progressbar.hide();
-        console.log(error);
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
         return null;
     }
 }
@@ -30,26 +30,29 @@ export const create = async (userProfile, user) => {
     acl.setReadAccess(user._getId(), true);
     acl.setWriteAccess(user._getId(), true)
     newProfile.setACL(acl);
-    f7.progressbar.show();
     try {
         const profile = await newProfile.save();
         f7.progressbar.hide();
         return profile;
     } catch (error) {
-        console.log(error);
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
         f7.progressbar.hide();
         return null;
     }
 }
 
 export const update = async (userProfile) => {
+    f7.progressbar.show();
     userProfile.className = "UserProfile"
     let updatedProfile = Parse.Object.fromJSON(userProfile);
     try {
         const profile = await updatedProfile.save(updatedProfile.attributes);
+        f7.progressbar.hide();
+        f7.dialog.alert(`Profili u ruaj me sukses`, "Sukses");
         return profile;
     } catch (error) {
-        console.log(error);
+        f7.progressbar.hide();
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
         return null;
     }
 }

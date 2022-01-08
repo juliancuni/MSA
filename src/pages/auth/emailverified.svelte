@@ -1,58 +1,22 @@
 <script>
     import { f7, Page, Block, BlockTitle, Link } from "framework7-svelte";
-    // import { onMount } from "svelte";
-    // import { verifyEmail } from "../../js/services/parse/auth.services";
-    // import store from "../../js/store";
-    // import { t } from "../../js/i18n";
+    import { onMount } from "svelte";
+    import loggedInUser, { logoutUser } from "../../js/stores/user.store";
     export let f7route;
     export let f7router;
-
-    // const appId = f7route.params.appid;
-    // const token = f7route.query.token;
-    // const username = f7route.query.username;
-    // const verificationLink =
-    //     import.meta.env.VITE_PARSE_ENDPOINT +
-    //     "/apps/" +
-    //     appId +
-    //     "/verify_email?token=" +
-    //     token +
-    //     "&username=" +
-    //     username;
-    // let response = false;
-
-    // onMount(async () => {
-    //     if (!appId || !token) {
-    //         f7.dialog.alert(
-    //             "Link i parregullt.<br>Kontrolloni Linkun ne email dhe provoni serish",
-    //             "Gabim!"
-    //         );
-    //     } else {
-    //         response = await verifyEmail(verificationLink);
-    //         // token = await updateVerification(userId, secret);
-    //         // if (token) {
-    //         //     if (localStorage.getItem("sessionId")) {
-    //         //         await logout(localStorage.getItem("sessionId"));
-    //         //         store.dispatch("logoutUser");
-    //         //     }
-    //         // }
-    //     }
-    // });
+    f7route;
+    f7router;
+    onMount(async () => {
+        if ($loggedInUser) {
+            f7.dialog.alert("Emaili u verifikua me sukses", "Sukses");
+            await logoutUser();
+        }
+    });
 </script>
 
 <Page class="grid-demo">
     <Block strong inset>
         <BlockTitle>Email u verifikua me sukses!</BlockTitle>
-        <!-- {#if appId || token}
-            {#if response}
-                <BlockTitle>Email u verifikua me sukses!</BlockTitle>
-            {:else}
-                <BlockTitle
-                    >Deshtim! Ridergo nje email tjeter konfirmimi.</BlockTitle
-                >
-            {/if}
-        {:else}
-            <BlockTitle>No UserId or Secret</BlockTitle>
-        {/if} -->
         <Link href="/auth/login">Login</Link>
     </Block>
 </Page>
