@@ -97,7 +97,6 @@ export const requestPassRecovery = async (email) => {
 
 export const changePassword = async (username, oldPassword, newPassword) => {
     try {
-        console.log(typeof oldPassword)
         const res = await Parse.User.verifyPassword(username, oldPassword);
 
         if (res) {

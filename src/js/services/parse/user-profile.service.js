@@ -14,7 +14,6 @@ export const get = async () => {
         const currentUser = await getLoggedInUser();
         const userProfileQuery = new Parse.Query(UserProfile);
         const userProfile = await userProfileQuery.first();
-        // console.log(userProfile)
         f7.progressbar.hide();
         return userProfile;
     } catch (error) {
@@ -48,7 +47,6 @@ export const update = async (userProfile) => {
     let updatedProfile = Parse.Object.fromJSON(userProfile);
     try {
         const profile = await updatedProfile.save(updatedProfile.attributes);
-        console.log(profile);
         return profile;
     } catch (error) {
         console.log(error);

@@ -33,9 +33,9 @@
     minYear = minYear - 70;
     let isFormValid = false;
     let userFields = {
-        oldPassword: import.meta.env.VITE_PASSWORD,
-        newPassword: "dsadsa",
-        newPasswordRepeat: "dsadsa",
+        oldPassword: "",
+        newPassword: "",
+        newPasswordRepeat: "",
     };
     let userErrors = {
         oldPassword: "",
@@ -47,7 +47,6 @@
     let profile = $userProfile.toJSON();
     let dl = [profile.datelindja.iso];
     const updateProfile = async () => {
-        console.log(profile);
         profile.datelindja = new Date(dl[0].toDateString());
         setLoggedInUserProfile(profile);
     };
