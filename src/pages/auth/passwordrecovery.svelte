@@ -100,7 +100,7 @@
         })();
 
         var base = import.meta.env.VITE_PARSE_ENDPOINT;
-        var id = urlParams["id"];
+        var id = import.meta.env.VITE_PARSE_APPID;
         document
             .getElementById("form")
             .setAttribute(
