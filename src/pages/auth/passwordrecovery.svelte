@@ -99,7 +99,7 @@
                 urlParams[re_space(pair[1])] = re_space(pair[2]);
         })();
 
-        var base = "http://server.home:1337/v1/";
+        var base = import.meta.env.VITE_PARSE_APPID;
         var id = urlParams["id"];
         document
             .getElementById("form")
