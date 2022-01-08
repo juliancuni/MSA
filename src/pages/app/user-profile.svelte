@@ -13,8 +13,14 @@
         Chip,
         Input,
     } from "framework7-svelte";
-    import { onMount } from "svelte";
-    import loggedInUser from "../../js/stores/user.store";
+    import userProfile, {
+        setLoggedInUserProfile,
+    } from "../../js/stores/user-profile.store";
+    import { changeUserPassword } from "../../js/stores/user.store";
+    import { t } from "../../js/i18n";
+    import ListInputAutoComplete from "../components/autocomplete.svelte";
+    import { qytetetList } from "../components/utils/qytetet.list";
+    import validation from "../../js/form-validation";
     export let f7router;
     export let f7route;
     f7router;
@@ -25,122 +31,67 @@
     maxYear = maxYear - 15;
     minYear = minYear.getFullYear();
     minYear = minYear - 70;
+    let isFormValid = false;
+    let userFields = {
+        oldPassword: import.meta.env.VITE_PASSWORD,
+        newPassword: "dsadsa",
+        newPasswordRepeat: "dsadsa",
+    };
+    let userErrors = {
+        oldPassword: "",
+        newPassword: "",
+        newPasswordRepeat: "",
+    };
+    $: ui = $t("ui");
 
-    let user = { ...$loggedInUser.attributes };
-    // let dl = [userProfil?.datelindja];
-
-    const upsertProfile = async () => {};
-
-    onMount(() => {
-        console.log(f7);
-        const qytetet = [
-            "Bajram Curri",
-            "Bajzë",
-            "Ballsh",
-            "Berat",
-            "Bilisht",
-            "Bulqizë",
-            "Burrel",
-            "Cërrik",
-            "Çorovodë",
-            "Delvinë",
-            "Divjakë",
-            "Durrës",
-            "Elbasan",
-            "Ersekë",
-            "Fier",
-            "Fierzë",
-            "Finiq",
-            "Fushë-Arrëz",
-            "Fushë-Krujë",
-            "Gjirokastër",
-            "Gramsh",
-            "Himarë",
-            "Kamëz",
-            "Kavajë",
-            "Këlcyrë",
-            "Klos",
-            "Konispol",
-            "Koplik",
-            "Korçë",
-            "Krastë",
-            "Krrabë",
-            "Krujë",
-            "Krumë",
-            "Kuçovë",
-            "Kukës",
-            "Kurbnesh",
-            "Laç",
-            "Leskovik",
-            "Lezhë",
-            "Libohovë",
-            "Librazhd",
-            "Lushnjë",
-            "Maliq",
-            "Mamurras",
-            "Manëz",
-            "Memaliaj",
-            "Milot",
-            "Orikum",
-            "Patos",
-            "Peqin",
-            "Përmet",
-            "Peshkopi",
-            "Pogradec",
-            "Poliçan",
-            "Prrenjas",
-            "Pukë",
-            "Reps",
-            "Roskovec",
-            "Rrëshen",
-            "Rrogozhinë",
-            "Rubik",
-            "Sarandë",
-            "Selenicë",
-            "Shëngjin",
-            "Shijak",
-            "Shkodër",
-            "Sukth",
-            "Tepelenë",
-            "Tiranë",
-            "Ulëz",
-            "Ura Vajgurore",
-            "Vau i Dejës",
-            "Vlorë",
-            "Vorë",
-        ];
-        f7.autocomplete.create({
-            inputEl: "#qytetet",
-            openIn: "dropdown",
-            source: (query, render) => {
-                console.log(query);
-                const results = [];
-                if (query.length === 0) {
-                    render(results);
-                    return;
-                }
-                for (let i = 0; i < qytetet.length; i++) {
-                    if (
-                        qytetet[i].toLowerCase().indexOf(query.toLowerCase()) >=
-                        0
-                    )
-                        results.push(qytetet[i]);
-                }
-                render(results);
-            },
-        });
-    });
+    let profile = $userProfile.toJSON();
+    let dl = [profile.datelindja.iso];
+    const updateProfile = async () => {
+        console.log(profile);
+        profile.datelindja = new Date(dl[0].toDateString());
+        setLoggedInUserProfile(profile);
+    };
+    const updatePassword = async () => {
+        isFormValid = true;
+        if (!validation.inputEmpty(userFields.oldPassword)) {
+            userErrors.oldPassword = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (!validation.passwordShort(userFields.oldPassword)) {
+            userErrors.oldPassword = ui.validation.fjalekalimiShkurter;
+            isFormValid = false;
+        } else {
+            userErrors.oldPassword = "";
+        }
+        if (!validation.inputEmpty(userFields.newPassword)) {
+            userErrors.newPassword = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (!validation.passwordShort(userFields.newPassword)) {
+            userErrors.newPassword = ui.validation.fjalekalimiShkurter;
+            isFormValid = false;
+        } else {
+            userErrors.newPassword = "";
+        }
+        if (!validation.inputEmpty(userFields.newPasswordRepeat)) {
+            userErrors.newPasswordRepeat = ui.validation.inputbosh;
+            isFormValid = false;
+        } else if (userFields.newPassword !== userFields.newPasswordRepeat) {
+            userErrors.newPasswordRepeat =
+                ui.validation.fjalekalimetNukPerputhen;
+            isFormValid = false;
+        } else {
+            userErrors.newPasswordRepeat = "";
+        }
+        if (isFormValid) {
+            await changeUserPassword(
+                profile.user.username,
+                userFields.oldPassword,
+                userFields.newPassword
+            );
+        }
+    };
 </script>
 
 <Page name="userprofile">
-    <!-- <BlockTitle>
-        {JSON.stringify(user.emriIPlote)}
-        {#if userProfil?.avatar || loggedInUser?.emriIPlote}
-            <Chip text={loggedInUser.emriIPlote}>
-                <img slot="media" src={userProfil.avatar} />
-            </Chip>
-        {/if} 
-    </BlockTitle>-->
     <Block strong>
         <Row>
             <Col width="100" medium="50">
@@ -151,58 +102,48 @@
                         type="text"
                         placeholder="Emër Mbiemër"
                         clearButton
-                        bind:value={user.emriIPlote}
+                        bind:value={profile.emriIPlote}
                     />
                     <ListInput
                         label="ID"
                         type="text"
                         placeholder="Nr. Personal"
                         clearButton
+                        bind:value={profile.nid}
                     />
                     <ListInput
                         label="Datëlindja"
                         type="datepicker"
                         calendarParams={{
-                            // value: [new Date().setFullYear(maxYear)],
                             dateFormat: "dd/mm/yyyy",
                             closeOnSelect: true,
                             yearPickerMax: maxYear,
                             yearPickerMin: minYear,
                         }}
                         placeholder="Zgjidh..."
+                        bind:value={dl}
                     />
                     <ListInput
                         label="Nr. Tel"
                         type="text"
                         placeholder="065 12 34 567"
+                        bind:value={profile.tel}
                     />
                     <ListInput
                         label="Adresa"
                         type="text"
                         placeholder="Rr. Rruga, Nr. 47"
                         clearButton
+                        bind:value={profile.adresa}
                     />
-                    <div class="item-content item-input">
-                        <div class="item-inner">
-                            <div class="item-title item-label">Qyteti</div>
-                            <div class="item-input-wrap">
-                                <input
-                                    id="qytetet"
-                                    type="text"
-                                    placeholder="Tiranë"
-                                    class=""
-                                /> <span class="input-clear-button" />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <input
-                        id="qytetet"
-                        type="text"
+                    <ListInputAutoComplete
+                        placeholder="psh. Tiranë"
+                        lista={qytetetList}
                         label="Qyteti"
-                        placeholder="Tiranë"
-                    /> -->
+                        bind:value={profile.qyteti}
+                    />
                 </List>
-                <Button raised onClick={upsertProfile}>Ruaj Profilin</Button>
+                <Button raised onClick={updateProfile}>Ruaj Profilin</Button>
             </Col>
             <Col width="100" medium="50">
                 <BlockTitle>Të dhënat e përdoruesit</BlockTitle>
@@ -212,20 +153,38 @@
                         type="text"
                         placeholder="Username"
                         disabled
-                        bind:value={user.username}
+                        bind:value={profile.user.username}
                     />
                     <ListInput
                         label="Email"
                         type="text"
                         placeholder="email@domain.com"
                         disabled
-                        bind:value={user.email}
+                        bind:value={profile.user.email}
                     />
-                    <ListInput label="Fjalëkalimi aktual" type="password" />
-                    <ListInput label="Fjalëkalimi i ri" type="password" />
-                    <ListInput label="Përserite" type="password" />
+                    <ListInput
+                        label="Fjalëkalimi aktual"
+                        type="password"
+                        bind:value={userFields.oldPassword}
+                        errorMessageForce={userErrors.oldPassword}
+                        errorMessage={userErrors.oldPassword}
+                    />
+                    <ListInput
+                        label="Fjalëkalimi i ri"
+                        type="password"
+                        bind:value={userFields.newPassword}
+                        errorMessageForce={userErrors.newPassword}
+                        errorMessage={userErrors.newPassword}
+                    />
+                    <ListInput
+                        label="Përserite"
+                        type="password"
+                        bind:value={userFields.newPasswordRepeat}
+                        errorMessageForce={userErrors.newPasswordRepeat}
+                        errorMessage={userErrors.newPasswordRepeat}
+                    />
                 </List>
-                <Button raised onClick={upsertProfile}
+                <Button raised onClick={updatePassword}
                     >Ndrysho fjalëkalimin</Button
                 >
             </Col>

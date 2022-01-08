@@ -11,10 +11,10 @@
         PageContent,
         Chip,
     } from "framework7-svelte";
-    import loggedInUser from '../../js/stores/user.store'
+    import userProfile from "../../js/stores/user-profile.store";
 
-    $: nameInitials = $loggedInUser?.emriIPlote
-        ? $loggedInUser.emriIPlote
+    $: nameInitials = $userProfile?.attributes?.emriIPlote
+        ? $userProfile.attributes.emriIPlote
               .split(" ")
               .map((n) => n[0])
               .join("")
@@ -30,11 +30,11 @@
                 </NavTitle>
                 <p>Main Nav</p>
             </Navbar>
-            {#if $loggedInUser && nameInitials}
+            {#if $userProfile}
                 <Block strong>
                     <Link href="/app/userprofile" panelClose>
                         <Chip
-                            text={loggedInUser?.emriIPlote}
+                            text={$userProfile?.attributes?.emriIPlote}
                             mediaBgColor="pink"
                             media={nameInitials}
                         />

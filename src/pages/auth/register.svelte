@@ -9,12 +9,9 @@
         Button,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { register, logout } from "../../js/services/parse/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
-
-    import store from "../../js/store";
-
+    import { registerUser } from "../../js/stores/user.store";
     export let f7router;
     export let f7route;
     f7router;
@@ -40,7 +37,7 @@
     $: loginpage = $t("login");
     $: ui = $t("ui");
 
-    const registerUser = async () => {
+    const regUser = async () => {
         isFormValid = true;
         if (!validation.inputEmpty(fields.fullName)) {
             errors.fullName = ui.validation.inputbosh;
@@ -76,29 +73,16 @@
             errors.passwordRepeat = "";
         }
         if (isFormValid) {
-            f7.progressbar.show();
-            const user = await register(
-                fields.fullName,
+            await registerUser(
+                { emriIPlote: fields.fullName },
                 fields.email,
                 fields.username,
                 fields.password
             );
-            if (user) {
-                await logout();
-                store.dispatch("logoutUser");
-                f7router.navigate("/auth/login");
-            }
-            f7.progressbar.hide();
         }
     };
-    // const handleKeydown = (e) => {
-    //     if (e.keyCode === 13) {
-    //         registerUser();
-    //     }
-    // };
 </script>
 
-<!-- <svelte:window on:keydown={handleKeydown} /> -->
 <Page noToolbar noNavbar noSwipeback loginScreen name="login">
     <LoginScreenTitle>{registerpage.titulli}</LoginScreenTitle>
     <List form>
@@ -149,7 +133,7 @@
         />
     </List>
     <List>
-        <Button raised onClick={registerUser}>{ui.button.ruaj}</Button>
+        <Button raised onClick={regUser}>{ui.button.ruaj}</Button>
         <ListButton color="green" href="/auth/login"
             >{loginpage.button}</ListButton
         >

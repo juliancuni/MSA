@@ -1,13 +1,14 @@
 import { f7 } from 'framework7-svelte';
 import { writable } from 'svelte/store';
-import { getLoggedInUser, login, logout } from '../services/parse/auth.services';
+import { getLoggedInUser, login, logout, register, changePassword } from '../services/parse/auth.services';
+import { createLoggedInUserProfile, getLoggedInUserProfile } from './user-profile.store';
+import clearAllStores from './utils/clear-all.stores';
 
 const loggedInUser = writable(null);
 
 export const loginUser = async (identity, password) => {
     const user = await login(identity, password);
     if (user) {
-        console.log(user);
         loggedInUser.set(user)
         f7.views.main.router.navigate("/app/dashboard");
     };
@@ -15,7 +16,7 @@ export const loginUser = async (identity, password) => {
 
 export const logoutUser = async () => {
     await logout();
-    loggedInUser.set(null);
+    clearAllStores();
     f7.views.main.router.navigate("/auth/login");
 }
 
@@ -23,7 +24,22 @@ export const checkAuthentication = async () => {
     const user = await getLoggedInUser();
     if (user) {
         loggedInUser.set(user)
+        await getLoggedInUserProfile();
     };
+}
+
+export const registerUser = async (fullname, email, username, password) => {
+    const user = await register(email, username, password);
+    if (user) {
+        loggedInUser.set(user);
+        await createLoggedInUserProfile(fullname, user);
+        logoutUser();
+    };
+}
+
+export const changeUserPassword = async (username, oldPassword, newPassword) => {
+    const res = await changePassword(username, oldPassword, newPassword);
+    if(res) logoutUser();
 }
 
 export default loggedInUser;

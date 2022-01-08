@@ -11,7 +11,6 @@
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
     import { requestPassRecovery } from "../../js/services/parse/auth.services";
-    import store from "../../js/store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
 

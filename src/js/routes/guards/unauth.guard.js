@@ -1,10 +1,11 @@
 import { f7 } from 'framework7-svelte';
-import store from '../../store';
 
-const isAuthenticated = store.getters.authenticated;
+import { checkAuthentication } from '../../stores/user.store';
+import { getLoggedInUser } from '../../services/parse/auth.services';
 export const unAuthGuard = async (resolve, reject, component) => {
-    await store.dispatch("checkAuthentication");
-    if (isAuthenticated.value) {
+    await checkAuthentication();
+    let user = await getLoggedInUser();
+    if (user) {
         f7.views.main.router.navigate("/app/dashboard");
         return reject();
     } else {

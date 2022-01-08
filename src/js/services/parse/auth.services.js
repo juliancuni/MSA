@@ -37,18 +37,20 @@ export const login = async (username, password) => {
     }
 }
 
-export const register = async (name, email, username, password) => {
+export const register = async (email, username, password) => {
+    f7.progressbar.show();
     try {
         const user = new Parse.User();
-        user.set("name", name);
         user.setUsername(username);
         user.setEmail(email)
         user.setPassword(password)
         const u = await user.signUp();
         f7.dialog.alert(alerts.krijoVerifikimSukses.mesazhi, alerts.krijoVerifikimSukses.titulli);
+        f7.progressbar.hide();
         return u;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Regjistrimi Deshtoi");
+        f7.progressbar.hide();
         return null;
     }
 }
@@ -90,5 +92,24 @@ export const requestPassRecovery = async (email) => {
         }
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+    }
+}
+
+export const changePassword = async (username, oldPassword, newPassword) => {
+    try {
+        console.log(typeof oldPassword)
+        const res = await Parse.User.verifyPassword(username, oldPassword);
+
+        if (res) {
+            const user = await Parse.User.current();
+            user.setPassword(newPassword);
+            const updatedUser = await user.save();
+            f7.dialog.alert(`Fjalekalimi u ndryshua. Ju duhet te logoheni serish.`, "Sukses");
+            return updatedUser;
+        }
+        return null;
+    } catch (error) {
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        return null;
     }
 }

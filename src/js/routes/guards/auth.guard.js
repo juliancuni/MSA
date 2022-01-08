@@ -1,7 +1,6 @@
 import { f7 } from 'framework7-svelte';
-import { checkAuthentication } from '../../stores/user.store';
+import { checkAuthentication, logoutUser } from '../../stores/user.store';
 import { createEmailVerification, getLoggedInUser } from '../../services/parse/auth.services';
-import { logout } from '../../services/parse/auth.services';
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
 
@@ -9,7 +8,7 @@ const alerts = translations[locale].ui.alerts;
 
 export const authGuard = async (resolve, reject, component) => {
     await checkAuthentication();
-    let user = await getLoggedInUser(); 
+    let user = await getLoggedInUser();
     if (user) {
         if (user.attributes?.emailVerified) {
             return resolve({ component })
@@ -23,15 +22,13 @@ export const authGuard = async (resolve, reject, component) => {
                         color: 'green',
                         onClick: async () => {
                             await createEmailVerification(user.attributes.email)
-                            await logout()
-                            store.dispatch("logoutUser");
+                            await logoutUser();
                         }
                     },
                     {
                         text: "Cancel",
                         onClick: async () => {
-                            await logout()
-                            store.dispatch("logoutUser");
+                            await logoutUser();
                         }
                     }
                 ]
