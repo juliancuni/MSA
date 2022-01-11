@@ -1,6 +1,6 @@
 export default {
-    inputEmpty: (email) => {
-        if (email.trim() === "") {
+    inputEmpty: (input) => {
+        if (input.trim() === "") {
             return false
         }
         return true;
