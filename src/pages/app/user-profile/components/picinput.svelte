@@ -18,8 +18,6 @@
             value = { name: image.name, type: image.type, avatar };
         };
     };
-
-    console.log(value);
 </script>
 
 <div id="app">
@@ -77,7 +75,7 @@
         justify-content: center;
         flex-flow: column;
     }
-    .chan {
+    /* .chan {
         cursor: pointer;
     }
 
@@ -86,7 +84,7 @@
         height: 50px;
         width: 50px;
         cursor: pointer;
-    }
+    } */
 
     .avatar {
         display: flex;
@@ -96,9 +94,9 @@
         position: relative;
     }
 
-    .close-button {
+    /* .close-button {
         position: absolute;
         z-index: 1;
         right: 20px;
-    }
+    } */
 </style>

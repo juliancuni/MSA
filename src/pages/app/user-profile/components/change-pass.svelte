@@ -23,7 +23,6 @@
     };
 
     const updatePassword = async () => {
-        console.log(passFields);
         isFormValid = true;
         if (!validation.inputEmpty(passFields.oldPassword)) {
             userErrors.oldPassword = ui.validation.inputbosh;

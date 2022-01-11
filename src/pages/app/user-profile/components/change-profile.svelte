@@ -16,8 +16,6 @@
 
     let dl = [profile.datelindja?.iso || new Date().setFullYear(maxYear)];
     const updateProfile = async () => {
-        console.log(profile.avatar);
-
         profile.datelindja = new Date(dl[0].toDateString());
         setLoggedInUserProfile(profile);
     };
