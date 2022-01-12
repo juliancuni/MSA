@@ -84,14 +84,37 @@ export const getLoggedInUser = async () => {
     }
 }
 
-export const requestPassRecovery = async (email) => {
+// export const requestPassRecovery = async (email) => {
+//     try {
+//         const user = await Parse.User.requestPasswordReset(email);
+//         if (user) {
+//             f7.dialog.alert(alerts.krijoPasswordReset.mesazhi, alerts.krijoPasswordReset.titulli);
+//         }
+//     } catch (error) {
+//         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+//     }
+// }
+
+export const requestPassRecoveryCloud = async (email) => {
     try {
-        const user = await Parse.User.requestPasswordReset(email);
-        if (user) {
+        const sendMail = await Parse.Cloud.run("requestPassRecovery", { email });
+        if (sendMail) {
             f7.dialog.alert(alerts.krijoPasswordReset.mesazhi, alerts.krijoPasswordReset.titulli);
         }
     } catch (error) {
+        console.log(error)
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+    }
+}
+
+export const passwordResetCloud = async (token, password) => {
+    try {
+        const passReseted = await Parse.Cloud.run("resetPassword", { token, password });
+        // if (passReseted) f7.dialog.alert(`Fjalekalimi u ndryshua. Ju duhet te logoheni serish.`, "Sukses");
+        return passReseted;
+    } catch (error) {
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        return null;
     }
 }
 

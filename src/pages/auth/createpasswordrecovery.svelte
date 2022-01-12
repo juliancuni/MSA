@@ -10,13 +10,15 @@
         Block,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import { requestPassRecovery } from "../../js/services/parse/auth.services";
+    import { requestPassRecoveryCloud } from "../../js/services/parse/auth.services";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
 
     export let f7router;
     export let f7route;
-
+    f7router;
+    f7route;
+    
     $: rikuperopage = $t("rikupero");
     $: ui = $t("ui");
 
@@ -37,7 +39,7 @@
         }
         if (isFormValid) {
             f7.progressbar.show();
-            const token = await requestPassRecovery(email);
+            const token = await requestPassRecoveryCloud(email);
             if (token) {
                 f7router.navigate("/auth/login");
             }
