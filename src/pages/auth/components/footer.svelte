@@ -9,10 +9,17 @@
 <br />
 <BlockFooter>
     <Link href="/">{auth.links.homepage}</Link> |
-    <Link href="/auth/createpasswordrecovery">{auth.links.rikupero}</Link> |
+    <!-- <Link href="/auth/createpasswordrecovery">{auth.links.rikupero}</Link> | -->
     <Link
         onClick={() =>
-            f7.dialog.alert(ui.alerts.kontakt.mesazhi, ui.alerts.kontakt.titulli)}
-        >{auth.links.kontakt}</Link
+            f7.dialog.alert("N/A", "Rikupero ...")}
+        >{auth.links.rikupero}</Link
+    > |
+    <Link
+        onClick={() =>
+            f7.dialog.alert(
+                ui.alerts.kontakt.mesazhi,
+                ui.alerts.kontakt.titulli
+            )}>{auth.links.kontakt}</Link
     >
 </BlockFooter>

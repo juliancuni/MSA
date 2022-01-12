@@ -12,7 +12,7 @@
 </script>
 
 <div class="dropdown">
-    <Link panelClose aria-haspopup="true">
+    <Link href="/app/userprofile">
         <Chip
             text={f7.device.android || f7.device.iphone
                 ? null

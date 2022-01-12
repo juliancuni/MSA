@@ -27,7 +27,7 @@
                 <BlockTitle>Të dhënat e përdoruesit</BlockTitle>
                 <ChangeUsername usernameField={profile.user.username} />
                 <ChangeEmail emailField={profile.user.email} />
-                <ChangePassword />
+                <ChangePassword username={profile.user.username} />
             </Col>
         </Row>
     </Block>

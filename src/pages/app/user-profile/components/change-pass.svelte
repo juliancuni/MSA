@@ -9,8 +9,10 @@
 
     $: ui = $t("ui");
 
-    let isFormValid = false;
+    export let username;
 
+    let isFormValid = false;
+    
     let passFields = {
         oldPassword: "",
         newPassword: "",
@@ -54,7 +56,7 @@
         }
         if (isFormValid) {
             await changeUserPassword(
-                profile.user.username,
+                username,
                 passFields.oldPassword,
                 passFields.newPassword
             );

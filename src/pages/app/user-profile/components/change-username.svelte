@@ -10,14 +10,14 @@
 
     const updateUsername = async () => {
         isFormValid = true;
-        if (!validation.inputEmpty(userFields.username)) {
-            userErrors.username = ui.validation.inputbosh;
+        if (!validation.inputEmpty(usernameField)) {
+            usernameError = ui.validation.inputbosh;
             isFormValid = false;
         } else {
-            userErrors.username = "";
+            usernameError = "";
         }
         if (isFormValid) {
-            await changeUserUserName(userFields.username);
+            await changeUserUserName(usernameField);
         }
     };
 </script>
