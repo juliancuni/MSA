@@ -27,17 +27,10 @@
             <img class="avatar" src={avatar} alt="" />
         </div>
         <Row>
-            <!-- <Button
-                iconF7="cloud_upload"
-                onClick={upload}
-                preloader
-                large
-                small
-            /> -->
             <Button iconF7="clear" large small onClick={reset} />
         </Row>
     {:else if value.url}
-        <img class="avatar" src={value.url} alt="" />
+        <img class="avatar" src={value.url} alt="" on:click={() => input.click()} />
         <Button
             iconF7="camera_on_rectangle"
             large
@@ -47,14 +40,12 @@
             }}
         />
     {:else}
-        <SkeletonAvatar class="avatar" />
+        <SkeletonAvatar class="avatar" onClick={() => input.click()} />
         <Button
             iconF7="camera_on_rectangle"
             large
             small
-            onClick={() => {
-                input.click();
-            }}
+            onClick={() => input.click()}
         />
     {/if}
 

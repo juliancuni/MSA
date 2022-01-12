@@ -45,12 +45,12 @@ export const update = async (userProfile) => {
     f7.progressbar.show();
     userProfile.className = "UserProfile"
     let avatar;
-    if (userProfile.avatar) {
-        avatar = new Parse.File(userProfile.avatar.name, { base64: userProfile.avatar.avatar }, userProfile.avatar.type);
-        delete userProfile.avatar;
-    }
     let updatedProfile = Parse.Object.fromJSON(userProfile);
-    updatedProfile.set('avatar', avatar);
+
+    if (userProfile.avatar.avatar) {
+        avatar = new Parse.File(userProfile.avatar.name, { base64: userProfile.avatar.avatar }, userProfile.avatar.type);
+        updatedProfile.set('avatar', avatar);
+    }
     try {
         const profile = await updatedProfile.save(updatedProfile.attributes);
         f7.progressbar.hide();
@@ -63,17 +63,17 @@ export const update = async (userProfile) => {
     }
 }
 
-export const uploadFile = async (file, avatar) => {
-    const fileUpload = new Parse.File(file.name, { base64: avatar }, file.type);
-    try {
-        const uploadedfile = await fileUpload.save()
-        return fileUpload;
-    } catch (error) {
-        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
-        return null;
-    }
+// export const uploadFile = async (file, avatar) => {
+//     const fileUpload = new Parse.File(file.name, { base64: avatar }, file.type);
+//     try {
+//         const uploadedfile = await fileUpload.save()
+//         return fileUpload;
+//     } catch (error) {
+//         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+//         return null;
+//     }
 
-}
+// }
 
 const checkProgressBar = () => {
 }

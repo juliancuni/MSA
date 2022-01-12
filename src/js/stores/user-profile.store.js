@@ -1,7 +1,6 @@
 import { writable } from "svelte/store";
 
 import { get, create, update } from '../services/parse/user-profile.service';
-
 const userProfile = writable(null);
 
 export const getLoggedInUserProfile = async () => {
