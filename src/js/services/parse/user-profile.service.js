@@ -28,7 +28,7 @@ export const create = async (userProfile, user) => {
     newProfile.add(userProfile);
     newProfile.set('user', user);
     acl.setReadAccess(user._getId(), true);
-    acl.setWriteAccess(user._getId(), true)
+    acl.setWriteAccess(user._getId(), true);
     newProfile.setACL(acl);
     try {
         const profile = await newProfile.save();
@@ -62,18 +62,6 @@ export const update = async (userProfile) => {
         return null;
     }
 }
-
-// export const uploadFile = async (file, avatar) => {
-//     const fileUpload = new Parse.File(file.name, { base64: avatar }, file.type);
-//     try {
-//         const uploadedfile = await fileUpload.save()
-//         return fileUpload;
-//     } catch (error) {
-//         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
-//         return null;
-//     }
-
-// }
 
 const checkProgressBar = () => {
 }

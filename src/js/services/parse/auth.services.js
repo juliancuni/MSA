@@ -1,11 +1,10 @@
 import { f7 } from 'framework7-svelte';
-import Parse from "./parse.sdk";
+import Parse from 'parse/dist/parse.min.js';
+// import Parse from 'parse';
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'
 const alerts = translations[locale].ui.alerts;
 const auth = translations[locale].auth;
-
-// const UserSdk = new Parse.User();
 
 export const login = async (username, password) => {
     f7.progressbar.show();
@@ -56,22 +55,28 @@ export const register = async (email, username, password) => {
 }
 
 export const createEmailVerification = async (email) => {
+    f7.progressbar.show();
     try {
         const user = await Parse.User.requestEmailVerification(email);
         if (user) {
             f7.dialog.alert(alerts.krijoVerifikimSukses.mesazhi, alerts.krijoVerifikimSukses.titulli);
         }
+        f7.progressbar.hide();
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
     }
 
 }
 
 export const logout = async () => {
+    f7.progressbar.show();
     try {
         const u = await Parse.User.logOut();
+        f7.progressbar.hide();
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
     }
 }
 
@@ -84,81 +89,89 @@ export const getLoggedInUser = async () => {
     }
 }
 
-// export const requestPassRecovery = async (email) => {
-//     try {
-//         const user = await Parse.User.requestPasswordReset(email);
-//         if (user) {
-//             f7.dialog.alert(alerts.krijoPasswordReset.mesazhi, alerts.krijoPasswordReset.titulli);
-//         }
-//     } catch (error) {
-//         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
-//     }
-// }
-
 export const requestPassRecoveryCloud = async (email) => {
+    f7.progressbar.show();
     try {
         const sendMail = await Parse.Cloud.run("requestPassRecovery", { email });
         if (sendMail) {
             f7.dialog.alert(alerts.krijoPasswordReset.mesazhi, alerts.krijoPasswordReset.titulli);
         }
+        f7.progressbar.hide();
     } catch (error) {
-        console.log(error)
+        f7.progressbar.hide();
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
     }
 }
 
 export const passwordResetCloud = async (token, password) => {
+    f7.progressbar.show();
     try {
         const passReseted = await Parse.Cloud.run("resetPassword", { token, password });
-        // if (passReseted) f7.dialog.alert(`Fjalekalimi u ndryshua. Ju duhet te logoheni serish.`, "Sukses");
+        f7.progressbar.hide();
         return passReseted;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
         return null;
     }
 }
 
 export const changePassword = async (username, oldPassword, newPassword) => {
+    f7.progressbar.show();
     try {
         const res = await Parse.User.verifyPassword(username, oldPassword);
-
         if (res) {
-            const user = await Parse.User.current();
+            const user = Parse.User.current();
             user.setPassword(newPassword);
-            const updatedUser = await user.save();
-            f7.dialog.alert(`Fjalekalimi u ndryshua. Ju duhet te logoheni serish.`, "Sukses");
-            return updatedUser;
+            try {
+                const updatedUser = await user.save();
+                f7.dialog.alert(`Fjalekalimi u ndryshua. Ju duhet te logoheni serish.`, "Sukses");
+                f7.progressbar.hide();
+                return updatedUser;
+            } catch (error) {
+                f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+                f7.progressbar.hide();
+                return null;
+            }
         }
+        f7.progressbar.hide();
         return null;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
         return null;
     }
 }
 
 export const changeUsername = async (username) => {
+    f7.progressbar.show();
     const user = Parse.User.current();
     user.setUsername(username)
     try {
         const updatedUser = await user.save();
         f7.dialog.alert(`Perdoruesi u ndryshua me sukses. Ju duhet te logoheni serish.`, "Sukses");
+        f7.progressbar.hide();
         return updatedUser;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
         return null;
     }
 
 }
 
 export const changeEmail = async (email) => {
+    f7.progressbar.show();
     const user = Parse.User.current();
     user.setEmail(email)
     try {
         const updatedUser = await user.save();
         f7.dialog.alert(`Email u ndryshua me sukses. Ju duhet te logoheni serish.`, "Sukses");
+        f7.progressbar.hide();
         return updatedUser;
     } catch (error) {
         f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        f7.progressbar.hide();
         return null;
     }
 }
