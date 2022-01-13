@@ -6,10 +6,11 @@
     export let f7router;
     f7route;
     f7router;
-    $: if ($loggedInUser) {
-        f7.dialog.alert("Emaili u verifikua me sukses", "Sukses");
-        logoutUser();
-    }
+    onMount(async () => {
+        await logoutUser();
+        f7.dialog.alert("Emaili u verifikua", "Sukses");
+        localStorage.removeItem("f7router-view_main-history");
+    });
 </script>
 
 <Page class="grid-demo">
