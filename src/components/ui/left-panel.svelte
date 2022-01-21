@@ -27,7 +27,9 @@
             <Block strong>
                 <Link href="/app/dashboard" panelClose>Dashboard</Link>
             </Block>
-            <Block strong />
+            <Block strong>
+                <Link href="/app/users" panelClose>Users</Link>
+            </Block>
         </PageContent>
     </Page>
 </Panel>
