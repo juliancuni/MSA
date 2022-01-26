@@ -1,7 +1,7 @@
 <script>
     import { List, ListInput, Button } from "framework7-svelte";
 
-    import { changeUserEmail } from "../../../../js/stores/user.store";
+    import { changeUserEmail } from "../../../../js/stores/auth.store";
     import { t } from "../../../../js/i18n/index";
     import validation from "../../../../js/form-validation";
     $: ui = $t("ui");

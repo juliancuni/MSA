@@ -1,6 +1,6 @@
 import { f7 } from 'framework7-svelte';
 
-import { checkAuthentication } from '../../stores/user.store';
+import { checkAuthentication } from '../../stores/auth.store';
 import { getLoggedInUser } from '../../services/parse/auth.services';
 export const unAuthGuard = async (resolve, reject, component) => {
     await checkAuthentication();

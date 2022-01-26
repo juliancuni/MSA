@@ -1,7 +1,7 @@
 <script>
     import { Page, Block, BlockTitle, Row, Col } from "framework7-svelte";
 
-    import userProfile from "../../../js/stores/user-profile.store";
+    import {userProfile} from "../../../js/stores/users.store";
 
     import ChangePassword from "./components/change-pass.svelte";
     import ChangeEmail from "./components/change-email.svelte";

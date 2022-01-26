@@ -1,9 +1,10 @@
-import loggedInUser from "../user.store";
-import userProfile from "../user-profile.store";
+import loggedInUser from "../auth.store";
+import { userProfile, usersProfile } from "../users.store";
 
 const clearAllStores = () => {
     loggedInUser.set(null);
     userProfile.set(null);
+    usersProfile.set(null);
 }
 
 export default clearAllStores;

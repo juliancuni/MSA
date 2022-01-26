@@ -1,5 +1,5 @@
 import DashboardPage from '../../pages/app/dashboard.svelte';
-import UserProfilePage from '../../pages/app/user-profile/user-profile.svelte';
+import UserProfilePage from '../../pages/app/users/users.svelte';
 import UsersPage from '../../pages/app/users/users.svelte'
 import { authGuard } from './guards/auth.guard';
 const appRoutes = [

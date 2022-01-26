@@ -1,7 +1,7 @@
 <script>
     import { f7, Page, Block, BlockTitle, Link } from "framework7-svelte";
     import { onMount } from "svelte";
-    import loggedInUser, { logoutUser } from "../../js/stores/user.store";
+    import loggedInUser, { logoutUser } from "../../js/stores/auth.store";
     export let f7route;
     export let f7router;
     f7route;

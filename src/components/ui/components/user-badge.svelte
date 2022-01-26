@@ -1,7 +1,7 @@
 <script>
     import { f7, Link, Chip } from "framework7-svelte";
-    import userProfile from "../../../js/stores/user-profile.store";
-    import { logoutUser } from "../../../js/stores/user.store";
+    import {userProfile} from "../../../js/stores/users.store";
+    import { logoutUser } from "../../../js/stores/auth.store";
     $: profile = $userProfile?.toJSON() || {};
     $: nameInitials = profile.emriIPlote
         ? profile.emriIPlote

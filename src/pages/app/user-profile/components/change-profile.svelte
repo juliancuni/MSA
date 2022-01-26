@@ -1,6 +1,6 @@
 <script>
     import { List, ListInput, Button } from "framework7-svelte";
-    import { setLoggedInUserProfile } from "../../../../js/stores/user-profile.store";
+    import { setLoggedInUserProfile } from "../../../../js/stores/users.store";
     
     import { qytetetList } from "../../../components/utils/qytetet.list";
     import ListInputAutoComplete from "../../../components/autocomplete.svelte";

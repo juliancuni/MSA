@@ -11,7 +11,7 @@
     import Footer from "./components/footer.svelte";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
-    import { registerUser } from "../../js/stores/user.store";
+    import { registerUser } from "../../js/stores/auth.store";
     export let f7router;
     export let f7route;
     f7router;

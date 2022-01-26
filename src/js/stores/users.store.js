@@ -1,10 +1,12 @@
-import { writable } from "svelte/store";
 
-import { get, create, update } from '../services/parse/user-profile.service';
-const userProfile = writable(null);
+import { writable } from "svelte/store";
+import { getUserProfile, create, update, getUsersProfile } from '../services/parse/user-profile.service';
+
+export const userProfile = writable(null);
+export const usersProfile = writable([]);
 
 export const getLoggedInUserProfile = async () => {
-    const profile = await get();
+    const profile = await getUserProfile();
     if (profile) userProfile.set(profile);
 }
 
@@ -18,4 +20,10 @@ export const setLoggedInUserProfile = async (updatedProfile) => {
     if (profile) userProfile.set(profile);
 }
 
-export default userProfile;
+export const getAllUsersProfile = async () => {
+    const allUsersProfile = await getUsersProfile();
+    if (allUsersProfile) usersProfile.set(allUsersProfile);
+}
+
+
+// export default usersProfile;

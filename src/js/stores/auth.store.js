@@ -1,7 +1,7 @@
 import { f7 } from 'framework7-svelte';
 import { writable } from 'svelte/store';
 import { getLoggedInUser, login, logout, register, changePassword, changeUsername, changeEmail } from '../services/parse/auth.services';
-import { createLoggedInUserProfile, getLoggedInUserProfile } from './user-profile.store';
+import { createLoggedInUserProfile, getLoggedInUserProfile } from './users.store';
 import clearAllStores from './utils/clear-all.stores';
 
 const loggedInUser = writable(null);

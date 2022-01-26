@@ -2,17 +2,17 @@ import { f7 } from 'framework7-svelte';
 import Parse from "./parse.sdk";
 import { getLoggedInUser } from './auth.services';
 const UserProfile = new Parse.Object.extend("UserProfile");
-const acl = new Parse.ACL();
+// const acl = new Parse.ACL();
 
-acl.setPublicReadAccess(false);
-acl.setPublicWriteAccess(false);
+// acl.setPublicReadAccess(false);
+// acl.setPublicWriteAccess(false);
 
-export const get = async () => {
-    // f7.progressbar.show();
-    checkProgressBar();
+export const getUserProfile = async () => {
     try {
+        // f7.progressbar.show();
         const currentUser = await getLoggedInUser();
         const userProfileQuery = new Parse.Query(UserProfile);
+        userProfileQuery.equalTo('user', currentUser)
         const userProfile = await userProfileQuery.first();
         f7.progressbar.hide();
         return userProfile;
@@ -27,10 +27,11 @@ export const create = async (userProfile, user) => {
     let newProfile = new UserProfile();
     newProfile.add(userProfile);
     newProfile.set('user', user);
-    acl.setReadAccess(user._getId(), true);
-    acl.setWriteAccess(user._getId(), true);
-    newProfile.setACL(acl);
+    // acl.setReadAccess(user._getId(), true);
+    // acl.setWriteAccess(user._getId(), true);
+    // newProfile.setACL(acl);
     try {
+        f7.progressbar.show();
         const profile = await newProfile.save();
         f7.progressbar.hide();
         return profile;
@@ -42,7 +43,6 @@ export const create = async (userProfile, user) => {
 }
 
 export const update = async (userProfile) => {
-    f7.progressbar.show();
     userProfile.className = "UserProfile"
     let avatar;
     let updatedProfile = Parse.Object.fromJSON(userProfile);
@@ -52,6 +52,7 @@ export const update = async (userProfile) => {
         updatedProfile.set('avatar', avatar);
     }
     try {
+        f7.progressbar.show();
         const profile = await updatedProfile.save(updatedProfile.attributes);
         f7.progressbar.hide();
         f7.dialog.alert(`Profili u ruaj me sukses`, "Sukses");
@@ -63,5 +64,16 @@ export const update = async (userProfile) => {
     }
 }
 
-const checkProgressBar = () => {
+export const getUsersProfile = async () => {
+    try {
+        f7.progressbar.show();
+        const usersProfileQuery = new Parse.Query(UserProfile);
+        const usersProfile = await usersProfileQuery.find();
+        f7.progressbar.hide();
+        return usersProfile;
+    } catch (error) {
+        f7.progressbar.hide();
+        f7.dialog.alert(`${error.code}: ${error.message}`, "Error");
+        return null;
+    }
 }

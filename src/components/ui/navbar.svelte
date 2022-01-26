@@ -10,7 +10,7 @@
     import UserBadge from "./components/user-badge.svelte";
 
     // import { lcl, locales, locale } from "../../js/i18n";
-    import loggedInUser from "../../js/stores/user.store";
+    import loggedInUser from "../../js/stores/auth.store";
 
     // const setLang = () => {
     //     f7.smartSelect.get(".smart-select").close();

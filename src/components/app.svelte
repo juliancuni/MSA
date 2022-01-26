@@ -5,7 +5,7 @@
     import RightPanel from "./ui/left-panel.svelte";
     import routes from "../js/routes";
     import store from "../js/store";
-    import { checkAuthentication } from "../js/stores/user.store";
+    import { checkAuthentication } from "../js/stores/auth.store";
     let f7params = {
         name: "AMMS",
         theme: "aurora",

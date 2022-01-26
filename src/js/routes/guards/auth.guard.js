@@ -1,5 +1,5 @@
 import { f7 } from 'framework7-svelte';
-import { checkAuthentication, logoutUser } from '../../stores/user.store';
+import { checkAuthentication, logoutUser } from '../../stores/auth.store';
 import { createEmailVerification, getLoggedInUser } from '../../services/parse/auth.services';
 import { localeString as locale } from "../../i18n";
 import translations from '../../i18n/translations'

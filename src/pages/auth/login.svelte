@@ -8,7 +8,7 @@
         ListButton,
     } from "framework7-svelte";
     import Footer from "./components/footer.svelte";
-    import loggedInUser, { loginUser } from "../../js/stores/user.store";
+    import loggedInUser, { loginUser } from "../../js/stores/auth.store";
     import { t } from "../../js/i18n";
     import validation from "../../js/form-validation";
     export let f7router;

@@ -1,7 +1,7 @@
 <script>
     import { List, ListInput, Button } from "framework7-svelte";
 
-    import { changeUserPassword } from "../../../../js/stores/user.store";
+    import { changeUserPassword } from "../../../../js/stores/auth.store";
 
     import { t } from "../../../../js/i18n/index";
 
